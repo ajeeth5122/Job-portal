@@ -1,7 +1,7 @@
-body {
+/* body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-}
+} */
 
 .login-page {
   background: #ffffff;
@@ -61,7 +61,7 @@ body {
   background: #fff;
   padding: 20px 0;
   margin-right: 70px;
-  transform: translateY(-80px); 
+  transform: translateY(-80px);
 }
 
 .login-form h2 {
@@ -83,28 +83,35 @@ body {
 .login-form input[type="password"] {
   width: 100%;
   padding: 10px;
+  padding-right: 40px;
   margin-top: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .password-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .password-wrapper .eye-icon {
   position: absolute;
-  right: -15px;
-  top: 15px;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 3px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.show-icon{
+.show-icon {
   height: 20px;
 }
 
-.error-msg{
+.error-msg {
   color: red;
   font-size: 0.85rem;
   margin-top: 4px;
@@ -134,7 +141,7 @@ body {
 }
 
 .j-login-btn {
-  width: 105%;
+  width: 100%;
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -143,21 +150,63 @@ body {
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .divider {
   text-align: center;
-  margin: 25px 0 15px;
+  margin: 15px 0 15px;
   font-size: 17px;
   color: #777;
+}
+
+.google-btn img,
+.mobile-btn-outline img {
+  width: 20px;
+  height: 20px;
+}
+
+.google-btn-outline,
+.mobile-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #99ccff;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #032240;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.google-btn-outline:hover,
+.mobile-btn-outline:hover {
+  background-color: #f0f7ff;
+}
+
+.google-btn-outline img {
+  width: 30px;
+  height: 30px;
+}
+
+.mobile-btn-outline img {
+  width: 24px;
+  height: 20px;
 }
 
 .google-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 105%;
+  gap: 15px;
+  width: 100%;
   padding: 10px;
   border: 1px solid #007bff;
   border-radius: 6px;
@@ -166,12 +215,59 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: #333;
+  margin-top: 15px;
+}
+
+.email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 15px;
+}
+
+.mobile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 15px;
 }
 
 .google-btn img {
   width: 18px;
   height: 18px;
 }
+
+
+.email-btn img {
+  width: 40px;
+  height: 50px;
+}
+
+.mobile-btn img {
+  width: 30px;
+  height: 30px;
+}
+
 
 @media screen and (max-width: 768px) {
   .login-header {
@@ -180,49 +276,60 @@ body {
     padding: 16px 20px;
     gap: 10px;
   }
- 
+
   .header-links {
     width: 100%;
     flex-wrap: wrap;
     gap: 10px;
     font-size: 14px;
   }
- 
+
   .login-body {
     flex-direction: column;
     padding: 30px 30px;
     margin-top: 50px;
   }
- 
+
   .login-illustration {
     display: none;
   }
- 
+
   .login-header .no-account,
   .login-header .employer-redirect-link,
   .login-header .separator {
     display: none;
   }
+
   .login-header .header-links {
     width: auto;
     justify-content: flex-end;
   }
- 
+
   .login-header .signup-btn {
     display: inline-flex;
     white-space: nowrap;
   }
- 
+
   .login-form {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
+    transform: translateY(0);
+    margin-right: 0;
   }
- 
+
   .login-form h2 {
     font-size: 28px;
     text-align: center;
     margin-bottom: 24px;
     padding: 20px;
+  }
+
+  .j-login-btn,
+  .google-btn-outline,
+  .mobile-btn-outline {
+    display: center;
+    width: 100%;
+    margin-top: 20px;
   }
 }

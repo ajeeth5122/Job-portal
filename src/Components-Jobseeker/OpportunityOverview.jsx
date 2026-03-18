@@ -190,7 +190,7 @@ export const OpportunityOverview = () => {
                     <div><img src={twitter} className='opp-socials-icon' alt="twitter" /></div>
                   </div>
                 </div>
-                <button className="opp-report-btn">Report this job</button>
+                <button  onClick={() => navigate('/Job-portal/jobseeker/ReportAJob')} className="opp-report-btn">Report this job</button>
               </div>
             </div>
           </div>

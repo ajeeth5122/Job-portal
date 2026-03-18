@@ -54,9 +54,9 @@ import { PostJobForm } from './Components-Employer/PostJobForm'
 import { PostJobPreview } from './Components-Employer/PostJobPreview'
 import { PostedJobs } from './Components-Employer/PostedJobs'
 import { EditJob } from './Components-Employer/EditJob'
-// import FindTalent2 from './Components-Employer/Findtalent2'
-// import { ProfileCard } from './Components-Employer/ProfileCard'
 import { JsProfileOverview } from './Components-Employer/JsProfileOverview'
+import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
+import { ReportAJob } from './Components-Jobseeker/ReportAJob'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -69,6 +69,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/jobseeker/login/forgotpassword',
   element: <Jforgotpassword />,
+},
+{
+  path: '/Job-portal/login/otpverification',
+  element: <OtpVerification />,
 },
 {
   path: '/Job-portal/jobseeker/signup',
@@ -101,6 +105,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/jobseeker/OpportunityOverview/:id',
   element: <OpportunityOverview />,
+},
+{
+  path: '/Job-portal/jobseeker/ReportAJob',
+  element: <ReportAJob />,
 },
 {
   path: '/Job-portal/jobseeker/myjobs',
@@ -281,7 +289,8 @@ const router = createBrowserRouter([{
 {
   path:'/Job-portal/Employer/about-your-company/company-verification',
   element: <CompanyVerify/>
-}
+},
+
 
 ])
 
