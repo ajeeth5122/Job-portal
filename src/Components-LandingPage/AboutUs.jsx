@@ -11,12 +11,13 @@ import Blogs from '../assets/Blog.png'
 import HiringJobs from '../assets/HiringatJobportal.png'
 import Success from '../assets/Success.png'
 import Research from '../assets/Research.png'
-import { Header } from './Header'
+import { FHeader } from './FHeader'
+
 
 export const AboutUs = () => {
     return (
         <>
-            <Header />
+            <FHeader/>
             <div className='AboutusHeaderContainer'>
                 <div>
                     <h1 className='AboutusHeader'>About us / <span className='AboutusHeaderSpan'>Who we are</span></h1>

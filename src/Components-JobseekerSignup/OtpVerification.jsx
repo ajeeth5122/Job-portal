@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import manSitting from '../assets/login_otp_image.png';
 import './OtpVerification.css';
 
 export const OtpVerification = () => {
   const navigate = useNavigate();
+  const location =  useLocation();
   const [otp, setOtp] = useState(new Array(4).fill(""));
   const [seconds, setSeconds] = useState(60);
   const [error, setError] = useState("");
   const inputRefs = useRef([]);
-
+  const Source  = location.state?.sentTo || "Mobile number";
   const DEFAULT_OTP = "1234";
 
   const handleResend = () => {
@@ -97,7 +98,7 @@ export const OtpVerification = () => {
             Back
           </button>
           <h2 className="otp-title">OTP</h2>
-          <p className="otp-subtitle">{seconds > 0 ? "We have sent code to your Mobile number" : "Your OTP session has expired."}</p>
+          <p className="otp-subtitle">{seconds > 0 ? `We have sent code to your ${Source}` : "Your OTP session has expired."}</p>
 
           <form className="otp-form" onSubmit={handleVerifyOtp}>
             <div className={`otp-input-group ${seconds === 0 ? "expired-fade" : ""}`}>
@@ -133,7 +134,7 @@ export const OtpVerification = () => {
           </form>
 
           <div className="otp-resend-section">
-            <span>You didn't get mobile OTP ? </span>
+            <span>You didn't get OTP? </span>
             <button
               className="resend-btn"
               disabled={seconds > 0}

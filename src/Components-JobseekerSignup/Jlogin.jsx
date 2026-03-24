@@ -87,7 +87,8 @@ export const Jlogin = () => {
 
     const source = view === 'mobile-otp' ? "Mobile" : "Email";
     alert(`OTP Sent to ${source}`);
-    navigate('/Job-portal/login/otpverification');
+    const target = view === 'email-otp' ? "Email ID" : "Mobile number";
+    navigate('/Job-portal/login/otpverification',{ state: { sentTo: target } });
   }
 
   const handleSubmit = (e) => {
