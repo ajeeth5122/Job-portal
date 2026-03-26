@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../Components-Employer/Chatbox.css'
 import { useJobs } from '../JobContext';
+import home from "../assets/home_icon.png"
+import { Link } from 'react-router-dom';
 
 //**JMessenger***//
 export const JMessenger = () => {
@@ -8,7 +10,7 @@ export const JMessenger = () => {
     //{POV : Logged in as Ajeeth }
    // const CurrentUser = 2; //(here we can able to change the Profile in otherjobseekers view)
     
-    const {chats, setChats, currentUserId, isChatEnded, setNotificationsData} = useJobs(); // from Context
+    const {chats, setChats,currentUser, currentUserId, isChatEnded, setNotificationsData} = useJobs(); // from Context
 
     const [input, setInput] = useState("");
 
@@ -51,6 +53,7 @@ export const JMessenger = () => {
             ? { ...chat, messages: [...chat.messages, newMsg] } 
             : chat
         ));
+        addEmployerNotification(`New message from ${currentUser.profile?.fullName}`, employerProfile?.id);
         setInput("");
     };
 
@@ -58,7 +61,9 @@ export const JMessenger = () => {
         <div className="messages-container">
             <div className="E-chat-name">
                 <div style={{ height: "100vh" }} className="web-sidebar">
-                    <div className="sidebar-header"><h2 style={{color:"#007bff",textAlign:"center"}}>Messages</h2></div>
+                    <div className="sidebar-header">
+                        <Link to="/Job-portal/Employer/Dashboard"><img src={home} style={{ height: "20px" }}/></Link>
+                        <h2 style={{color:"#007bff",textAlign:"center"}}>Messages</h2></div>
                     {hasMessages && (
                         <div className="sidebar-item active">
                             <strong>{employerProfile?.name}</strong>

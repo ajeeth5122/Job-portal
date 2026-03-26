@@ -3,18 +3,27 @@ import './EHeader.css'
 import search from '../assets/icon_search.png'
 import chat from '../assets/header_message.png'
 import bell from '../assets/header_bell.png'
+import bell_dot from '../assets/header_bell_dot.png'
 import profile from '../assets/header_profile.png'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useJobs } from '../JobContext'
+import { ENotification } from './ENotification'
 
 
 export const EHeader = () => {
-    const NavIcons = [
+     const { employershowNotification, setEmployerShowNotification, employerNotifications } = useJobs();
+    const location = useLocation();
 
-        { image: chat, path: "/Job-portal/Employer/Chat" },
-        { image: bell, path: "" },
+    const newNotificationsCount = employerNotifications
+    ? employerNotifications.filter(n => !n.isRead).length
+    : 0;
+    
+     const toggleNotification = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setEmployerShowNotification(!employershowNotification);
+    };
 
-
-    ]
     return (
         <header className="header">
             <div className="logo">job portal</div>
@@ -22,14 +31,31 @@ export const EHeader = () => {
                 <img className="E-searchicon" src={search} alt="search icon" />
                 <input className="input" type="text" placeholder='Search for jobs and applicants' />
             </div>
+             <div className="auth-links">
+                {/* Chat Icon */}
+                <Link to="/Job-portal/Employer/Chat">
+                    <img
+                        className={location.pathname === "/Job-portal/Employer/Chat" ? 'jheader-icons-active' : 'jheader-icons'}
+                        src={chat}
+                        width={40}
+                        alt='Chat'
+                    />
+                </Link>
 
-            <div className="auth-links">
-                {NavIcons.map((IC, index) => {
-                    const isActive = Location.pathname === IC.path
-                    return (
-                        <Link key={index} to={IC.path}><img className={isActive ? 'jheader-icons-active' : 'jheader-icons'} src={IC.image} width={40} alt='My Jobs' /></Link>)
-                })}
-            </div>
+                {/* Notification Bell Icon */}
+                <div className="notification-wrapper" style={{ position: 'relative' }}>
+                    <Link to="#" onClick={toggleNotification}>
+                        <img
+                            className={employershowNotification ? 'jheader-icons-active' : 'jheader-icons'}
+                            src={newNotificationsCount > 0 ?  bell_dot : bell }
+                            width={40}
+                            alt='Notifications'
+                        />
+                    </Link>
+
+                    {employershowNotification && <ENotification />}
+                </div>
+                </div>
 
         </header>
     )

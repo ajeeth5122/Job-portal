@@ -7,6 +7,7 @@ export const JobProvider = ({ children }) => {
     
     const [jobs, setJobs] = useState(Joblist); // Total JobList common for jobseeker and employer   
     const [activeMenuId, setActiveMenuId] = useState(null); // Using Id to Toggle Menu in Notification Window
+    const [employeractiveMenuId, setEmployerActiveMenuId] = useState(null);
     const [companyProfile, setCompanyProfile] = useState([]); //From About your company
 
     const [Alluser, setAlluser] = useState([
@@ -37,13 +38,15 @@ export const JobProvider = ({ children }) => {
             languages: [{ "name": "Tamil", "proficiency": "Native" }, { "name": "English", "proficiency": "Professional" }, { "name": "Malayalam", "proficiency": "Fluent" }],
             certs: [{ "name": "Google Data Analytics", "file": "g_data.pdf" }],
             preferences: [{ "currentCTC": "0", "expectedCTC": "4 LPA", "jobType": "Full-Time", "role": "Junior Data Analyst", "ready": "Yes", "relocate": "Yes" }],
-            appliedJobs: [],
+            appliedJobs: [
+                
+            ],
             savedJobs: []
         },
         {
             id: "3",
             profile: { "fullName": "Surya vardhan KGF", "gender": "Male", "dob": "1996-11-30", "maritalStatus": "Married", "nationality": "Indian" },
-            currentDetails: { "jobTitle": "Backend Engineer", "company": "CloudScale Systems", experience: "4 Years", "currentLocation": "Bangalore", "prefLocation": "Remote" },
+            currentDetails: { "jobTitle": "Backend Engineer", "company": "CloudScale Systems", experience: "7 Years", "currentLocation": "Bangalore", "prefLocation": "Remote" },
             contact: { "mobile": "+91 9000112233", "altMobile": "", "email": "Surya.dev@email.com", "altEmail": "", "address": "HSR Layout Sector 2", "street": "27th Main", "city": "Bangalore", "state": "Karnataka", "pincode": "560102", "country": "India" },
             resume: { "size": "2MB", "portfolio": "" },
             education: { "highestQual": "Master's Degree", "sslc": { "institution": "Government Hr Sec", "percentage": "85%", "location": "Madurai", "year": "2012" }, "hsc": { "stream": "Pure Science", "institution": "Government Hr Sec", "location": "Madurai", "year": "2014", "percentage": "80%" }, "graduations": [{ "id": 1, "degree": "MCA", "status": "Completed", "dept": "Computer Apps", "percentage": "7.5 CGPA", "startYear": "2017", "endYear": "2019", "college": "Anna University", "city": "Chennai", "state": "Tamil Nadu", "country": "India" }] },
@@ -58,7 +61,7 @@ export const JobProvider = ({ children }) => {
         {
             id: "4",
             profile: { "fullName": "Chutki Bheem", "gender": "Female", "dob": "2000-02-14", "maritalStatus": "Single", "nationality": "Indian" },
-            currentDetails: { "jobTitle": "Content Writer", "company": "Media Works", experience: "1 Year", "currentLocation": "Chennai", "prefLocation": "Chennai" },
+            currentDetails: { "jobTitle": "Content Writer", "company": "Media Works", experience: "9 Year", "currentLocation": "Chennai", "prefLocation": "Chennai" },
             contact: { "mobile": "+91 9444123456", "altMobile": "", "email": "Chuki.write@email.com", "altEmail": "", "address": "Anna Nagar East", "street": "3rd Cross", "city": "Chennai", "state": "Tamil Nadu", "pincode": "600102", "country": "India" },
             resume: { "size": "900KB", "portfolio": "" },
             education: { "highestQual": "Bachelor's Degree", "sslc": { "institution": "Holy Cross", "percentage": "96%", "location": "Trichy", "year": "2016" }, "hsc": { "stream": "Arts", "institution": "Holy Cross", "location": "Trichy", "year": "2018", "percentage": "94%" }, "graduations": [{ "id": 1, "degree": "B.A. English", "status": "Completed", "dept": "Literature", "percentage": "82%", "startYear": "2018", "endYear": "2021", "college": "Loyola College", "city": "Chennai", "state": "Tamil Nadu", "country": "India" }] },
@@ -73,7 +76,7 @@ export const JobProvider = ({ children }) => {
         {
             id: "5",
             profile: { "fullName": "Thomas Antony", "gender": "Male", "dob": "1997-07-07", "maritalStatus": "Single", "nationality": "Indian" },
-            currentDetails: { "jobTitle": "DevOps Engineer", "company": "InfraGenie", experience: "3 Years", "currentLocation": "Hyderabad", "prefLocation": "Chennai" },
+            currentDetails: { "jobTitle": "DevOps Engineer", "company": "InfraGenie", experience: "4 Years", "currentLocation": "Hyderabad", "prefLocation": "Chennai" },
             contact: { "mobile": "+91 8877665544", "altMobile": "", "email": "Thomas.devops@email.com", "altEmail": "", "address": "Madhapur", "street": "HITEC City", "city": "Hyderabad", "state": "Telangana", "pincode": "500081", "country": "India" },
             resume: { "size": "1.5MB", "portfolio": "" },
             education: { "highestQual": "Bachelor's Degree", "sslc": { "institution": "Zion Matric", "percentage": "88%", "location": "Kanchi", "year": "2013" }, "hsc": { "stream": "CS", "institution": "Zion Matric", "location": "Kanchi", "year": "2015", "percentage": "82%" }, "graduations": [{ "id": 1, "degree": "B.E. ECE", "status": "Completed", "dept": "Engineering", "percentage": "7.8 CGPA", "startYear": "2015", "endYear": "2019", "college": "Sathyabama University", "city": "Chennai", "state": "Tamil Nadu", "country": "India" }] },
@@ -88,7 +91,7 @@ export const JobProvider = ({ children }) => {
         {
             id: "6",
             profile: { "fullName": "Karthiga", "gender": "Female", "dob": "1995-12-05", "maritalStatus": "Single", "nationality": "Indian" },
-            currentDetails: { "jobTitle": "Product Manager", "company": "FinTech Hub", experience: "5 Years", "currentLocation": "Bangalore", "prefLocation": "Bangalore" },
+            currentDetails: { "jobTitle": "Product Manager", "company": "FinTech Hub", experience: "8 Years", "currentLocation": "Bangalore", "prefLocation": "Bangalore" },
             contact: { "mobile": "+91 9112233445", "altMobile": "", "email": "Karthiga.pm@email.com", "altEmail": "", "address": "Indiranagar", "street": "100ft Road", "city": "Bangalore", "state": "Karnataka", "pincode": "560038", "country": "India" },
             resume: { "size": "1.8MB", "portfolio": "" },
             education: { "highestQual": "MBA", "sslc": { "institution": "BVB School", "percentage": "94%", "location": "Erode", "year": "2011" }, "hsc": { "stream": "Commerce", "institution": "BVB School", "location": "Erode", "year": "2013", "percentage": "96%" }, "graduations": [{ "id": 1, "degree": "MBA", "status": "Completed", "dept": "Management", "percentage": "9.0 CGPA", "startYear": "2017", "endYear": "2019", "college": "IIM Bangalore", "city": "Bangalore", "state": "Karnataka", "country": "India" }] },
@@ -147,7 +150,7 @@ export const JobProvider = ({ children }) => {
         },
         {
             id: "10",
-            profile: { "fullName": "Lithin and Boys", "gender": "male", "dob": "1997-11-11", "maritalStatus": "Single", "nationality": "Indian" },
+            profile: { "fullName": "Lithin", "gender": "male", "dob": "1997-11-11", "maritalStatus": "Single", "nationality": "Indian" },
             currentDetails: { "jobTitle": "HR Generalist", "company": "Global Talent", experience: "4 Years", "currentLocation": "Chennai", "prefLocation": "Chennai" },
             contact: { "mobile": "+91 9333222111", "altMobile": "", "email": "Lithinandco.hr@email.com", "altEmail": "", "address": "Mylapore", "street": "Luz Church Rd", "city": "Chennai", "state": "Tamil Nadu", "pincode": "600004", "country": "India" },
             resume: { "size": "1.2MB", "portfolio": "" },
@@ -284,6 +287,12 @@ export const JobProvider = ({ children }) => {
     };
     // Toggle End Conversation Logic In Employer Chat Window
     const [isChatEnded, setIsChatEnded] = useState(false);
+    const [employerNotifications, setEmployerNotifications] = useState([{
+        id: "emp_initial",
+        text: "Welcome Employer! Start posting jobs to find the best candidates.",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        isRead: false,
+    }]);
     // NotificationData previously passed from AfterLoginLanding page
     const [notificationsData, setNotificationsData] = useState([{
         id: Date.now(),
@@ -291,8 +300,20 @@ export const JobProvider = ({ children }) => {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isRead: false,
     }]);
+
+    const [employershowNotification, setEmployerShowNotification] = useState(false);
     // New Messages Notification Logic
     const [showNotification, setShowNotification] = useState(false);
+
+    const addEmployerNotification = (text) => {
+        const newNotif = {
+            id: msg.id,
+            text: text,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            isRead: false
+        };
+        setEmployerNotifications(prev => [newNotif, ...prev]);
+    };
     // to add NewNotification in NotificationData
     const addNotification = (text, targetId = null) => {
         const newNotif = {
@@ -593,10 +614,11 @@ export const JobProvider = ({ children }) => {
         };
 
         return {
-            total: jobApplicants.length,
+            total: jobApplicants.length, 
 
             new: getCountByStatus(["Application Submitted"]),
-            screening: getCountByStatus(["Resume Screening", "Recruiter Review", "Shortlisted"]),
+            screening: getCountByStatus(["Resume Screening", "Recruiter Review",]),
+            shortlisted: getCountByStatus(["Shortlisted"]),
             interview: getCountByStatus(["Interview Called"]),
             rejected: getCountByStatus(["Rejected"])
         };
@@ -621,7 +643,8 @@ export const JobProvider = ({ children }) => {
 
     return (
         <JobContext.Provider value={{
-            jobs, chats, setChats, setJobs, isJobSaved, isChatEnded, setIsChatEnded,
+            jobs, chats, setChats, setJobs, isJobSaved, isChatEnded, setIsChatEnded, employeractiveMenuId, setEmployerActiveMenuId,
+            employerNotifications, setEmployerNotifications, employershowNotification, setEmployerShowNotification,
             setNotificationsData, addNotification, toggleSaveJob, applyForJob, notificationsData, showNotification, setShowNotification,
             activeMenuId, setActiveMenuId, addJob, deleteJob, postJob, editJob, Alluser, setAlluser, activeSidebarUsers,
             addChatToSidebar, currentUser, withdrawJobFromUser, updateApplicantStatus, isJobApplied, companyProfile, setCompanyProfile, currentEmployer,

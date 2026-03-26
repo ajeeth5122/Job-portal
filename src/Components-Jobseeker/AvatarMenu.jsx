@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import avatarIcon from "../assets/header_profile.png";
 import profileIcon from "../assets/icon_profile.png";
-import reviewIcon from "../assets/icon_reviews.png";
 import settingsIcon from "../assets/icon_settings.png";
 import helpIcon from "../assets/icon_help.png";
 import "./AvatarMenu.css";
@@ -45,11 +44,6 @@ export const AvatarMenu = () => {
           <Link to="/Job-portal/jobseeker/myprofile" className="menu-items" onClick={() => setOpen(false)}>
             <img src={profileIcon} className="menu-icon" alt="profile" />
             Profile
-          </Link>
-
-          <Link to="" className="menu-items" onClick={() => setOpen(false)}>
-            <img src={reviewIcon} className="menu-icon" alt="reviews" />
-            My reviews
           </Link>
 
           <Link to="/Job-portal/jobseeker/Settings" className="menu-items" onClick={() => setOpen(false)}>
