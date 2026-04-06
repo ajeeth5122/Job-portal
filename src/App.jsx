@@ -57,6 +57,8 @@ import { EditJob } from './Components-Employer/EditJob'
 import { JsProfileOverview } from './Components-Employer/JsProfileOverview'
 import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
 import { ReportAJob } from './Components-Jobseeker/ReportAJob'
+import { AdminLogin } from './Components-Admin/AdminLogin'
+import { AdminDashboard } from './Components-Admin/AdminDashboard'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -290,6 +292,14 @@ const router = createBrowserRouter([{
   path:'/Job-portal/Employer/about-your-company/company-verification',
   element: <CompanyVerify/>
 },
+{
+  path: '/Job-portal/Admin/login',
+  element: <AdminLogin />,
+},
+{
+  path: '/Job-portal/Admin/Dashboard',
+  element: <AdminDashboard />,
+}
 
 
 ])
