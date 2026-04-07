@@ -37,8 +37,6 @@ export const Header = () => {
     ? notificationsData.filter(n => !n.isRead).length
     : 0;
 
-  console.log(newNotificationsCount)
-  console.log("Image to show:", newNotificationsCount > 0 ? "DOT ICON" : "NORMAL BELL");
   //  const newNotificationsCount = notificationsData.filter(n => !n.isRead).length;
  
   const preventNav = (e) => {
@@ -128,6 +126,8 @@ export const Header = () => {
             <Link to="/Job-portal/jobseeker/signup" className="signup-btn">Sign up</Link>
             <div className="separator"></div>
             <Link to="/Job-portal/employer/login" className="emp-log-link">For Employers</Link>
+            {/* <div className="separator"></div> */}
+            {/* <Link to="/Job-portal/Admin/login" className="emp-log-link">Login as Admin</Link> */}
           </>
         )}
       </div>
@@ -141,6 +141,8 @@ export const Header = () => {
             <Link to="/Job-portal/jobseeker/login" onClick={() => setMobileMenuOpen(false)}>Login</Link>
             <Link to="/Job-portal/jobseeker/signup" onClick={() => setMobileMenuOpen(false)}>Sign up</Link>
             <Link to="/Job-portal/employer/login" onClick={() => setMobileMenuOpen(false)}>For Employers</Link>
+            {/* <Link to="/Job-portal/employer/login" onClick={() => setMobileMenuOpen(false)}>Admin</Link> */}
+
           </div>
         </div>
       )}

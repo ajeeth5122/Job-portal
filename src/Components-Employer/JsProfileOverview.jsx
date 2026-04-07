@@ -58,7 +58,7 @@ export const JsProfileOverview = () => {
                   <p className="file-meta">Uploaded on: {currentUser.uploadDate || "24 Oct, 2023"}</p>
                 </div>
               </div>
-              <img src={threedots} alt="Menu" className="POverview-icon-more" />
+              {/* <img src={threedots} alt="Menu" className="POverview-icon-more" /> */}
             </div>
           </div>
 
