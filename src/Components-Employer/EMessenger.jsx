@@ -54,7 +54,7 @@ const { chats, setChats, Alluser, currentEmployer, addNotification, activeSideba
         : chat
     ));
     const notificationMsg = `${currentEmployer.hrName}: ${messageText}`
-    addNotification?.(`New message from ${notificationMsg}`, selectedId);
+    addNotification?.(`New message from ${notificationMsg}`, selectedId, `/Job-portal/jobseeker/Chat/${selectedId}`);
     setInput("");
   };
 

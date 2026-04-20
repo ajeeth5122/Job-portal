@@ -24,7 +24,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "Meta Frontend Certificate", "file": "meta_fe.pdf" }],
             preferences: [{ "currentCTC": "5 LPA", "expectedCTC": "8 LPA", "jobType": "Hybrid", "role": "Senior Frontend Developer", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"05/01/2026"
         },
         {
             id: "2",
@@ -38,10 +40,10 @@ export const JobProvider = ({ children }) => {
             languages: [{ "name": "Tamil", "proficiency": "Native" }, { "name": "English", "proficiency": "Professional" }, { "name": "Malayalam", "proficiency": "Fluent" }],
             certs: [{ "name": "Google Data Analytics", "file": "g_data.pdf" }],
             preferences: [{ "currentCTC": "0", "expectedCTC": "4 LPA", "jobType": "Full-Time", "role": "Junior Data Analyst", "ready": "Yes", "relocate": "Yes" }],
-            appliedJobs: [
-                
-            ],
-            savedJobs: []
+            appliedJobs: [],
+            savedJobs: [],
+            status:"Active",
+            joinDate:"15/11/2025"
         },
         {
             id: "3",
@@ -56,7 +58,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "AWS Certified Developer", "file": "aws_dev.pdf" }],
             preferences: [{ "currentCTC": "12 LPA", "expectedCTC": "18 LPA", "jobType": "Remote", "role": "Backend Lead", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"25/08/2024"
         },
         {
             id: "4",
@@ -71,7 +75,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "HubSpot Content Marketing", "file": "hubspot.pdf" }],
             preferences: [{ "currentCTC": "3.5 LPA", "expectedCTC": "5 LPA", "jobType": "Full-Time", "role": "Senior Content Strategist", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"03/03/2026"
         },
         {
             id: "5",
@@ -86,7 +92,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "CKA Certification", "file": "cka.pdf" }],
             preferences: [{ "currentCTC": "9 LPA", "expectedCTC": "13 LPA", "jobType": "Full-Time", "role": "DevOps Architect", "ready": "Yes", "relocate": "Yes" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Deactivate",
+            joinDate:"01/12/2023"
         },
         {
             id: "6",
@@ -101,7 +109,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "CSPO", "file": "cspo.pdf" }],
             preferences: [{ "currentCTC": "22 LPA", "expectedCTC": "28 LPA", "jobType": "Full-Time", "role": "Senior PM", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"07/07/2024"
         },
         {
             id: "7",
@@ -116,7 +126,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "ISTQB Foundation", "file": "istqb.pdf" }],
             preferences: [{ "currentCTC": "0", "expectedCTC": "4.5 LPA", "jobType": "Full-Time", "role": "QA Engineer", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"15/06/2024"
         },
         {
             id: "8",
@@ -131,7 +143,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "MERN Stack Mastery", "file": "mern.pdf" }],
             preferences: [{ "currentCTC": "7.5 LPA", "expectedCTC": "12 LPA", "jobType": "Remote", "role": "Senior Full Stack Developer", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"24/04/2024"
         },
         {
             id: "9",
@@ -146,7 +160,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "CEH", "file": "ceh.pdf" }],
             preferences: [{ "currentCTC": "18 LPA", "expectedCTC": "25 LPA", "jobType": "Full-Time", "role": "Security Manager", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"20/02/2024"
         },
         {
             id: "10",
@@ -161,7 +177,9 @@ export const JobProvider = ({ children }) => {
             certs: [{ "name": "SHRM Certified", "file": "shrm.pdf" }],
             preferences: [{ "currentCTC": "6 LPA", "expectedCTC": "9 LPA", "jobType": "Full-Time", "role": "HR Manager", "ready": "Yes", "relocate": "No" }],
             appliedJobs: [],
-            savedJobs: []
+            savedJobs: [],
+            status:"Active",
+            joinDate:"17/05/2023"
         }
     ]
     )
@@ -180,6 +198,7 @@ export const JobProvider = ({ children }) => {
         companyLogo: "",
         jobPosted: [],
         messages: [],
+        joinDate:"01/02/2022"
     });
     // Chats/messages between Employer and Jobseeker 1:1;
     const [chats, setChats] = useState([
@@ -305,21 +324,24 @@ export const JobProvider = ({ children }) => {
     // New Messages Notification Logic
     const [showNotification, setShowNotification] = useState(false);
 
-    const addEmployerNotification = (text) => {
+   const addEmployerNotification = (text, targetId = null,path=null) => {
         const newNotif = {
-            id: msg.id,
+            id: Date.now(),
             text: text,
+            targetId: targetId,
+            path: path,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             isRead: false
         };
         setEmployerNotifications(prev => [newNotif, ...prev]);
     };
     // to add NewNotification in NotificationData
-    const addNotification = (text, targetId = null) => {
+    const addNotification = (text, targetId = null, path = null) => {
         const newNotif = {
             id: Date.now(),
             text: text,
             targetId: targetId,
+            path: path,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             isRead: false
         };
@@ -648,7 +670,7 @@ export const JobProvider = ({ children }) => {
             setNotificationsData, addNotification, toggleSaveJob, applyForJob, notificationsData, showNotification, setShowNotification,
             activeMenuId, setActiveMenuId, addJob, deleteJob, postJob, editJob, Alluser, setAlluser, activeSidebarUsers,
             addChatToSidebar, currentUser, withdrawJobFromUser, updateApplicantStatus, isJobApplied, companyProfile, setCompanyProfile, currentEmployer,
-            getJobStats, savedJobs, appliedJobs, currentUserId, setCurrentEmployer,withdrawApplication,removeRejectedJob
+            getJobStats, savedJobs, appliedJobs, currentUserId, setCurrentEmployer,withdrawApplication,removeRejectedJob,addEmployerNotification
         }}>
             {children}
         </JobContext.Provider>

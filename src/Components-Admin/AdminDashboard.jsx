@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "./AdminDashboard.css"
 import Dashboard from '../assets/Employer/DashboardIC.png'
 import DashboardInact from '../assets/Employer/Dashboard_Inactive.png'
-import UserManagement from '../assets/AdminAssets/UserManage.png'
+import UserManagements from '../assets/AdminAssets/UserManage.png'
 import UserManagementACT from '../assets/AdminAssets/UserManageActive.png'
 import RoleManagement from '../assets/AdminAssets/RoleManage.png'
 import RoleManagementACT from '../assets/AdminAssets/RoleManageAct.png'
@@ -27,9 +27,15 @@ import ViewMore from '../assets/AdminAssets/ViewMore.png'
 import { TotalOverview } from './TotalOverview'
 import { AdminExperience } from './AdminExperience'
 import { Calendar } from './Calender'
+import { useJobs } from '../JobContext'
+import { UserManagement } from './UserManagement'
+import {ActivityMonitor} from './ActivityMonitor'
+import { AdminReports } from './AdminReports'
 
 export const AdminDashboard = () => {
+    const { jobs, Alluser, currentEmployer } = useJobs();
     const [activetab, setActiveTab] = useState('Dashboard');
+
     return (
         <>
             <EHeader />
@@ -62,7 +68,7 @@ export const AdminDashboard = () => {
                         <div onClick={() => setActiveTab('User Management')} className={activetab === "User Management" ? "Admin-Active" : 'Admin-Navbar'}>
                             <div className='Admin-Navbox'>
                                 {activetab === "User Management" ? <img src={UserManagementACT} width={15} height={15} alt="dashboard" />
-                                    : <img src={UserManagement} width={15} height={15} alt="User Management" />}
+                                    : <img src={UserManagements} width={15} height={15} alt="User Management" />}
                                 <div className='Enav-item'>User Management</div>
                             </div>
                         </div>
@@ -118,10 +124,10 @@ export const AdminDashboard = () => {
                                     <div className='Admin-Overview-Data'>
                                         <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
                                             <img src={TotalJobs} width={25} height={25} alt="Jobs" />
-                                            <p style={{ fontSize: "24px", fontWeight: "700",color:"#484848" }}>107</p>
+                                            <p style={{ fontSize: "24px", fontWeight: "700", color: "#484848" }}>{jobs.length}</p>
                                         </div>
                                         <div>
-                                            <p style={{ fontWeight: "bold",color: "#484848" }}>All Jobs</p>
+                                            <p style={{ fontWeight: "bold", color: "#484848" }}>All Jobs</p>
                                         </div>
                                     </div>
                                     <div className='Admin-Viewmore'>
@@ -134,10 +140,10 @@ export const AdminDashboard = () => {
                                     <div className='Admin-Overview-Data'>
                                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                             <img src={TotalCompanies} width={25} height={25} alt="Jobs" />
-                                            <p style={{ fontSize: "24px", fontWeight: "700",color:"#484848" }}>50</p>
+                                            <p style={{ fontSize: "24px", fontWeight: "700", color: "#484848" }}>50</p>
                                         </div>
                                         <div>
-                                            <p style={{ fontWeight: "bold",color: "#484848" }}>Total Companies</p>
+                                            <p style={{ fontWeight: "bold", color: "#484848" }}>Total Companies</p>
                                         </div>
                                     </div>
                                     <div className='Admin-Viewmore'>
@@ -149,10 +155,10 @@ export const AdminDashboard = () => {
                                     <div className='Admin-Overview-Data'>
                                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                             <img src={TotalEmployers} width={25} height={25} alt="Jobs" />
-                                            <p style={{ fontSize: "24px", fontWeight: "700",color:"#484848" }}>50</p>
+                                            <p style={{ fontSize: "24px", fontWeight: "700", color: "#484848" }}>50</p>
                                         </div>
                                         <div>
-                                            <p style={{ fontWeight: "bold",color: "#484848" }} >Total Employers</p>
+                                            <p style={{ fontWeight: "bold", color: "#484848" }} >Total Employers</p>
                                         </div>
                                     </div>
 
@@ -166,10 +172,10 @@ export const AdminDashboard = () => {
                                     <div className='Admin-Overview-Data'>
                                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                             <img src={TotalJobseekers} width={25} height={25} alt="Total Jobseekers" />
-                                            <p style={{ fontSize: "24px", fontWeight: "700",color: "#484848" }}>50</p>
+                                            <p style={{ fontSize: "24px", fontWeight: "700", color: "#484848" }}>{Alluser.length}</p>
                                         </div>
                                         <div>
-                                            <p style={{ fontWeight: "bold",color: "#484848" }}>Total Jobseekers</p>
+                                            <p style={{ fontWeight: "bold", color: "#484848" }}>Total Jobseekers</p>
                                         </div>
                                     </div>
 
@@ -217,7 +223,7 @@ export const AdminDashboard = () => {
                                     </div>
                                     <div className="Admin-job-card">
                                         <div className="Admin-job-left">
-                                            <p className="Admin-job-title">Finance Analyst</p> 
+                                            <p className="Admin-job-title">Finance Analyst</p>
                                             <span className="Admin-job-under">W1</span>
                                         </div>
                                         <div className="Admin-job-right">
@@ -290,10 +296,10 @@ export const AdminDashboard = () => {
 
                                     </div>
                                 </div>
-                                
+
                                 <div className='Admin-overview-cont' > <TotalOverview /></div>
                                 <div className="Admin-Amount-bal-cont">
-                                    
+
                                     <div className="balance-card">
                                         <h3 className="card-title">Account Balance</h3>
                                         <hr className="divider" />
@@ -312,7 +318,7 @@ export const AdminDashboard = () => {
                                         </p>
                                     </div>
 
-                                    
+
                                     <div className="balance-card margin-top">
                                         <h3 className="card-title">Video Resume & CV Database</h3>
                                         <hr className="divider" />
@@ -323,8 +329,7 @@ export const AdminDashboard = () => {
                                 </div>
                             </div>
                             <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-                                <div className='Admin-Experience'><AdminExperience/></div>
-                                {/* <AdminExperience/> */}
+                                <div className='Admin-Experience'><AdminExperience /></div>
                                 <div className='Adminpending-total'>
                                     <div className="Adminpending-container">
                                         <div className='Adminpending-head'>
@@ -347,22 +352,21 @@ export const AdminDashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div className='Admin-calender'><Calendar/></div>
+
+                                <div className='Admin-calender'><Calendar /></div>
                             </div>
                         </div>
                     )}
                     {activetab === 'Job Monitoring' && (<h3>Job Monitoring</h3>)}
-                    {activetab === 'Activity Monitoring' && (<h3>Activity Monitoring</h3>)}
-                    {activetab === 'User Management' && (<h3>User Management</h3>)}
+                    {activetab === 'Activity Monitoring' && ( <ActivityMonitor/> )}
+                    {activetab === 'User Management' && ( <UserManagement/>)}
                     {activetab === 'Role Management' && (<h3>Role Management</h3>)}
                     {activetab === 'Membership' && (<h3>Membership</h3>)}
                     {activetab === 'Tickets' && (<h3>Tickets</h3>)}
-                    {activetab === 'Reports' && (<h3>Reports</h3>)}
+                    {activetab === 'Reports' && (<AdminReports/>)}
                     {activetab === 'settings' && (<h3>settings</h3>)}
                 </div>
             </div>
-
         </>
     )
 }

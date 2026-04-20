@@ -15,7 +15,6 @@ export const JNotification = ({  }) => {
     
     const navigate = useNavigate();
     const containerRef = useRef(null);
-    // const CurrentUser = 2;
 
     const myPersonalNotifs = notificationsData.filter(n => 
         String(n.targetId) === String(currentUserId) || n.targetId === undefined || n.targetId === null
@@ -63,6 +62,15 @@ export const JNotification = ({  }) => {
         );
         setActiveMenuId(null);
     };
+    const handleNotificationClick = (n) => {
+
+        const isChat = n.path && n.path.includes('Chat' || 'chat');
+    if (isChat) {
+        navigate(n.path);
+        setShowNotification(false); 
+        handleMarkAsRead(n.id);// Close the panel
+    }
+};
 
     // CLOSE ON OUTSIDE CLICK
         useEffect(() => {
@@ -128,8 +136,10 @@ export const JNotification = ({  }) => {
                         
                         key={notification.id}
                         className={notification.isRead ? "notification-old-item" : "notification-new-item"}
+                        
                     >
-                        <div className="notification-content">
+                        <div className="notification-content" onClick={() => handleNotificationClick(notification)}>
+                            
                             <p className="notification-text">{notification.text}</p>
                             <p className="notification-time">{notification.time}</p>
                         </div>

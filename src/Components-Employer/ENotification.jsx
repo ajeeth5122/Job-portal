@@ -54,6 +54,17 @@ export const ENotification = ({  }) => {
         setEmployerActiveMenuId(null);
     };
 
+const handleNotificationClick = (n) => {
+    const isChat = n.path && n.path.includes('chat');
+    if (isChat) {
+        navigate(n.path);
+        setEmployerShowNotification(false); 
+        handleMarkAsRead(n.id);// Close the panel
+    }
+    
+
+};
+
     // CLOSE ON OUTSIDE CLICK
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -119,7 +130,7 @@ export const ENotification = ({  }) => {
                         key={notification.id}
                         className={notification.isRead ? "notification-old-item" : "notification-new-item"}
                     >
-                        <div className="notification-content">
+                        <div className="notification-content" onClick={() => handleNotificationClick(notification)}>
                             <p className="notification-text">{notification.text}</p>
                             <p className="notification-time">{notification.time}</p>
                         </div>
