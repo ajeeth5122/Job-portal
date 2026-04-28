@@ -347,37 +347,50 @@ export const ActivityMonitor = () => {
 
 
                 </div>
-                <div style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.08)", borderRadius: "10px", flex: "1.5" }}>
-                  <h4 style={{
+                <div style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.08)", borderRadius: "10px", flex: "1.5", backgroundColor: "#fff" }}>
+  <h4 style={{
                     textAlign: "center", background: "#ADCEED", padding: "15px", marginTop: "0px", borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px"
                   }}>Employer Activity</h4>
-                  <div style={{ padding: "0px 12px", marginBottom: "15px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 20px" }}>
-                      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                        <img src={BlueProfile} width={20} height={20} alt="" />
-                        <p style={{ margin: "0px 5px" }}>New Employers</p>
-                      </div>
-                      <div><span className="admin-stat-number">45</span></div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 20px" }}>
-                      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                        <img src={GreenProfile} width={20} height={20} alt="" />
-                        <p style={{ margin: "0px 5px" }}>Job Postings</p>
-                      </div>
-                      <div><span className="admin-stat-number">92</span></div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 20px" }}>
-                      <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                        <img src={RedProfile} width={20} height={20} alt="" />
-                        <p style={{ margin: "0px 5px" }}>Rejected Jobs</p>
-                      </div>
-                      <div><span className="admin-stat-number">05</span></div>
-                    </div>
-                  </div>
 
+  
+  <div style={{ padding: "10px 25px" }}>
+    
+    
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+          Applications last 2 days
+        </p>
+      </div>
+      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>09</div>
+    </div>
 
-                </div>
+    
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+          Applications last Weeks
+        </p>
+      </div>
+      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>55</div>
+    </div>
+
+   
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+          Applications last Month
+        </p>
+      </div>
+      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>232</div>
+    </div>
+
+  </div>
+</div>
 
               </div>
             </>
@@ -426,13 +439,13 @@ export const ActivityMonitor = () => {
               {openDropdownId === company.id && (
         <div className="C-Approval-dropdown">
           {["Pending", "Hold", "Reject", "Verified"]
-            .filter((status) => status !== company.verification) // Current status-ai hide panrom
+            .filter((status) => status !== company.verification)
             .map((status) => (
               <div 
                 key={status} 
                 onClick={() => {
                   handleStatusChange(company.id, status);
-                  setOpenDropdownId(null); // Select panna udane close aagum
+                  setOpenDropdownId(null); 
                 }}
               >
                 {status}
