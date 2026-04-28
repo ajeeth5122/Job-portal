@@ -13,8 +13,7 @@ export const TotalOverview = () => {
 
   const total = data.reduce((acc, item) => acc + item.value, 0);
   
-  // SVG Circle Logic
-  const radius = 70;
+  const radius = 75;
   const circumference = 2 * Math.PI * radius;
   let accumulatedOffset = 0;
 
@@ -24,7 +23,7 @@ export const TotalOverview = () => {
       <hr className="Admin-divider" />
       
       <div className="Admin-chart-container">
-        <svg width="200" height="200" viewBox="0 0 200 200">
+        <svg width="250" height="250" viewBox="0 0 200 200">
           {data.map((item, index) => {
             if (item.value === 0) return null;
             
@@ -40,7 +39,7 @@ export const TotalOverview = () => {
                 r={radius}
                 fill="transparent"
                 stroke={item.color}
-                strokeWidth="15"
+                strokeWidth="25"
                 strokeDasharray={`${strokeDasharray} ${circumference}`}
                 strokeDashoffset={strokeDashoffset}
                 transform="rotate(-90 100 100)"
