@@ -59,6 +59,7 @@ import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
 import { ReportAJob } from './Components-Jobseeker/ReportAJob'
 import { AdminLogin } from './Components-Admin/AdminLogin'
 import { AdminDashboard } from './Components-Admin/AdminDashboard'
+import { RolePermission } from './Components-Admin/RolePermission'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -303,6 +304,10 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/Admin/Dashboard',
   element: <AdminDashboard />,
+},
+{
+  path: '/Job-portal/Admin/RolePermission',
+  element: <RolePermission />,
 }
 
 

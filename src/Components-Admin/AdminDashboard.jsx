@@ -4,8 +4,8 @@ import Dashboard from '../assets/Employer/DashboardIC.png'
 import DashboardInact from '../assets/Employer/Dashboard_Inactive.png'
 import UserManagements from '../assets/AdminAssets/UserManage.png'
 import UserManagementACT from '../assets/AdminAssets/UserManageActive.png'
-import RoleManagement from '../assets/AdminAssets/RoleManage.png'
-import RoleManagementACT from '../assets/AdminAssets/RoleManageAct.png'
+import RoleManagementIC from '../assets/AdminAssets/RoleManage.png'
+import RoleManagementICACT from '../assets/AdminAssets/RoleManageAct.png'
 import JobMonitor from '../assets/AdminAssets/JobMon.png'
 import JobMonitorACT from '../assets/AdminAssets/JobMonActive.png'
 import Report from '../assets/AdminAssets/AdminReport.png'
@@ -16,8 +16,8 @@ import Tickets from '../assets/AdminAssets/Tickets.png'
 import TicketsACT from '../assets/AdminAssets/TicketsActive.png'
 import Settings from '../assets/AdminAssets/Settings.png'
 import SettingsAct from '../assets/AdminAssets/SettingsActive.png'
-import Membership from '../assets/AdminAssets/Membership.png'
-import MembershipAct from '../assets/AdminAssets/MembershipActive.png'
+import Memberships from '../assets/AdminAssets/Membership.png'
+import MembershipsAct from '../assets/AdminAssets/MembershipActive.png'
 import { EHeader } from '../Components-Employer/EHeader'
 import TotalJobs from '../assets/AdminAssets/TotalJobs.png'
 import TotalEmployers from '../assets/AdminAssets/TotalEmployers.png'
@@ -31,6 +31,10 @@ import { useJobs } from '../JobContext'
 import { UserManagement } from './UserManagement'
 import {ActivityMonitor} from './ActivityMonitor'
 import { AdminReports } from './AdminReports'
+import { JobMonitoring } from './JobMonitoring'
+import { RolePermission } from './RolePermission'
+import { RoleManagement } from './RoleManagement'
+import { Membership } from './Membership'
 
 export const AdminDashboard = () => {
     const { jobs, Alluser, currentEmployer } = useJobs();
@@ -41,7 +45,7 @@ export const AdminDashboard = () => {
             <EHeader />
             <div className='AdminContainer'>
                 <div className='Admin-Sidebar'>
-                    <h2 style={{ textAlign: "center", marginTop: "35px" }}>Adminstator</h2>
+                    <h2 style={{ textAlign: "center", marginTop: "35px" }}>Adminstrator</h2>
                     <div className='Admin-Sidebar-list'>
 
                         <div onClick={() => setActiveTab('Dashboard')} className={activetab === 'Dashboard' ? "Admin-Active" : 'Admin-Navbar'}>
@@ -74,16 +78,16 @@ export const AdminDashboard = () => {
                         </div>
                         <div onClick={() => setActiveTab('Role Management')} className={activetab === "Role Management" ? "Admin-Active" : 'Admin-Navbar'}>
                             <div className='Admin-Navbox'>
-                                {activetab === "Role Management" ? <img src={RoleManagementACT} width={15} height={15} alt="dashboard" />
-                                    : <img src={RoleManagement} width={15} height={15} alt="Role Management" />}
+                                {activetab === "Role Management" ? <img src={RoleManagementICACT} width={15} height={15} alt="dashboard" />
+                                    : <img src={RoleManagementIC} width={15} height={15} alt="Role Management" />}
                                 <div className='Enav-item'>Role Management</div>
                             </div>
                         </div>
 
                         <div onClick={() => setActiveTab('Membership')} className={activetab === "Membership" ? "Admin-Active" : 'Admin-Navbar'}>
                             <div className='Admin-Navbox'>
-                                {activetab === "Membership" ? <img src={MembershipAct} width={15} height={15} alt="dashboard" />
-                                    : <img src={Membership} width={15} height={15} alt="Membership" />}
+                                {activetab === "Membership" ? <img src={MembershipsAct} width={15} height={15} alt="dashboard" />
+                                    : <img src={Memberships} width={15} height={15} alt="Membership" />}
                                 <div className='Enav-item'>Membership</div>
                             </div>
                         </div>
@@ -186,10 +190,8 @@ export const AdminDashboard = () => {
 
                                 </div>
                             </div>
-
-                            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-
-                                <div className='Admin-Job-Ads-Cont'>
+                            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>            
+                            <div className='Admin-Job-Ads-Cont'>
                                     <div className="Admin-jobads-header">
                                         <h2>Your Job Ads</h2>
                                         <div className="Admin-jobads-buttons">
@@ -296,9 +298,14 @@ export const AdminDashboard = () => {
 
                                     </div>
                                 </div>
+                            </div>
+
+                            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                                <div className='Admin-Experience'><AdminExperience /></div>
+                                
 
                                 <div className='Admin-overview-cont' > <TotalOverview /></div>
-                                <div className="Admin-Amount-bal-cont">
+                                {/* <div className="Admin-Amount-bal-cont">
 
                                     <div className="balance-card">
                                         <h3 className="card-title">Account Balance</h3>
@@ -326,10 +333,11 @@ export const AdminDashboard = () => {
                                             Buy 1 month Access online or <a href="#">get in touch</a> <br /> with your account Manager
                                         </p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
-                            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-                                <div className='Admin-Experience'><AdminExperience /></div>
+                            
+                            {/* <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                                
                                 <div className='Adminpending-total'>
                                     <div className="Adminpending-container">
                                         <div className='Adminpending-head'>
@@ -354,14 +362,14 @@ export const AdminDashboard = () => {
                                 </div>
 
                                 <div className='Admin-calender'><Calendar /></div>
-                            </div>
+                            </div> */}
                         </div>
                     )}
-                    {activetab === 'Job Monitoring' && (<h3>Job Monitoring</h3>)}
+                    {activetab === 'Job Monitoring' && <JobMonitoring/>}
                     {activetab === 'Activity Monitoring' && ( <ActivityMonitor/> )}
                     {activetab === 'User Management' && ( <UserManagement/>)}
-                    {activetab === 'Role Management' && (<h3>Role Management</h3>)}
-                    {activetab === 'Membership' && (<h3>Membership</h3>)}
+                    {activetab === 'Role Management' && (<RoleManagement/>)}
+                    {activetab === 'Membership' && (<Membership/> )}
                     {activetab === 'Tickets' && (<h3>Tickets</h3>)}
                     {activetab === 'Reports' && (<AdminReports/>)}
                     {activetab === 'settings' && (<h3>settings</h3>)}
