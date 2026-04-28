@@ -19,7 +19,7 @@ export const ActivityMonitor = () => {
   const [activeTab, setActiveTab] = useState("AdminMonitor");
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
-  const [companyData,setCompanyData]  =useState( [
+  const [companyData, setCompanyData] = useState([
     { id: 1, name: "Info Tech Developer", user: "Jerold Rubin", date: "11 February 2026", certificate: "Yes", verification: "Pending" },
     { id: 2, name: "Tech Innavote", user: "Deepika", date: "9 February 2026", certificate: "Yes", verification: "Pending" },
     { id: 3, name: "Sales Hub", user: "Nancy", date: "15 February 2026", certificate: "No", verification: "Pending" },
@@ -28,7 +28,7 @@ export const ActivityMonitor = () => {
     { id: 6, name: "Insite Analytics", user: "Ibrahim", date: "12 March 2026", certificate: "No", verification: "Pending" },
     { id: 7, name: "Digital Solution", user: "Vishnu", date: "15 March 2026", certificate: "Yes", verification: "Pending" },
   ]);
-  
+
   const handleStatusChange = (id, newStatus) => {
     const updatedData = companyData.map((item) =>
       item.id === id ? { ...item, verification: newStatus } : item
@@ -348,49 +348,49 @@ export const ActivityMonitor = () => {
 
                 </div>
                 <div style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.08)", borderRadius: "10px", flex: "1.5", backgroundColor: "#fff" }}>
-  <h4 style={{
+                  <h4 style={{
                     textAlign: "center", background: "#ADCEED", padding: "15px", marginTop: "0px", borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px"
                   }}>Employer Activity</h4>
 
-  
-  <div style={{ padding: "10px 25px" }}>
-    
-    
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
-        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
-          Applications last 2 days
-        </p>
-      </div>
-      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>09</div>
-    </div>
 
-    
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
-        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
-          Applications last Weeks
-        </p>
-      </div>
-      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>55</div>
-    </div>
+                  <div style={{ padding: "10px 25px" }}>
 
-   
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
-        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
-          Applications last Month
-        </p>
-      </div>
-      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>232</div>
-    </div>
 
-  </div>
-</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+                        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+                          Applications last 2 days
+                        </p>
+                      </div>
+                      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>09</div>
+                    </div>
+
+
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+                        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+                          Applications last Weeks
+                        </p>
+                      </div>
+                      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>55</div>
+                    </div>
+
+
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0px" }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <span style={{ color: "#1a3353", marginRight: "10px", fontSize: "20px" }}>•</span>
+                        <p style={{ margin: 0, color: "#1a3353", fontWeight: "500", fontSize: "16px" }}>
+                          Applications last Month
+                        </p>
+                      </div>
+                      <div style={{ fontWeight: "bold", fontSize: "18px", color: "#1a3353" }}>232</div>
+                    </div>
+
+                  </div>
+                </div>
 
               </div>
             </>
@@ -430,33 +430,33 @@ export const ActivityMonitor = () => {
                       </span>
                     </div>
                     <div className="C-Approval-col C-Approval-dots">
-                      <span 
-                onClick={() => setOpenDropdownId(openDropdownId === company.id ? null : company.id)}
-                style={{ cursor: 'pointer', padding: '5px' }}
-              >
-                ...
-              </span>
-              {openDropdownId === company.id && (
-        <div className="C-Approval-dropdown">
-          {["Pending", "Hold", "Reject", "Verified"]
-            .filter((status) => status !== company.verification)
-            .map((status) => (
-              <div 
-                key={status} 
-                onClick={() => {
-                  handleStatusChange(company.id, status);
-                  setOpenDropdownId(null); 
-                }}
-              >
-                {status}
-              </div>
-            ))}
-        </div>
-      )}
+                      <span
+                        onClick={() => setOpenDropdownId(openDropdownId === company.id ? null : company.id)}
+                        style={{ cursor: 'pointer', padding: '5px' }}
+                      >
+                        ...
+                      </span>
+                      {openDropdownId === company.id && (
+                        <div className="C-Approval-dropdown">
+                          {["Pending", "Hold", "Reject", "Verified"]
+                            .filter((status) => status !== company.verification)
+                            .map((status) => (
+                              <div
+                                key={status}
+                                onClick={() => {
+                                  handleStatusChange(company.id, status);
+                                  setOpenDropdownId(null);
+                                }}
+                              >
+                                {status}
+                              </div>
+                            ))}
+                        </div>
+                      )}
                     </div>
 
                   </div>
-                  
+
                 ))}
               </div>
             </div>
