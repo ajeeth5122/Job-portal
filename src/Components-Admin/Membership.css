@@ -1,4 +1,4 @@
-/* Container and Layout */
+
 .membership-cr-membership-container {
   padding: 20px;
   background-color: #f8faff;
@@ -23,7 +23,7 @@
   gap: 15px;
 }
 
-/* Card Styling */
+
 .membership-cr-form-card {
   background: #fff;
   border: 1px solid #e0e6ed;
@@ -52,7 +52,7 @@
   font-size: 12px;
 }
 
-/* Grid and Inputs */
+
 .membership-cr-row {
   display: flex;
   gap: 20px;
@@ -74,8 +74,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-left: 40px;
   color: #080808;
+  width: 200px;
 }
 
 .membership-cr-flex-2 { flex: 2; }
@@ -96,7 +96,7 @@
   outline: none;
 }
 
-/* Rich Text Editor Toolbar */
+
 .membership-cr-rich-text-editor {
   border: 1px solid #dcdfe6;
   border-radius: 8px;
@@ -163,7 +163,7 @@
   object-fit: contain;
 }
 
-/* Editable Div Styling */
+
 .membership-cr-editable-div {
   min-height: 120px;
   padding: 12px;
@@ -180,7 +180,7 @@
   cursor: text;
 }
 
-/* Status Dropdown */
+
 .membership-cr-status-dropdown {
   display: flex;
   align-items: center;
@@ -195,14 +195,20 @@
 
 .membership-cr-status-content {
   display: flex;
-  align-items: center;
   gap: 8px;
 }
 
-.membership-cr-status-dot {
+.membership-cr-status-active-dot {
   width: 8px;
   height: 8px;
   background-color: #28a745;
+  border-radius: 50%;
+  display: flex;
+}
+.membership-cr-status-hold-dot {
+  width: 80px;
+  height: 80px;
+  background-color: #ffc904;
   border-radius: 50%;
   display: inline-block;
 }
@@ -212,12 +218,12 @@
   color: #333;
 }
 
-/* Pricing Section */
 .membership-cr-total-payable {
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 4px;
-  border: 1px dashed #28a745;
+  border: 1px solid #dcdfe6;
   text-align: right;
+  width: 245px;
 }
 
 .membership-cr-total-payable h3 {
@@ -231,7 +237,6 @@
   color: #666;
 }
 
-/* Features Table */
 .membership-cr-features-table {
   width: 100%;
   border-collapse: collapse;
@@ -308,7 +313,6 @@
   cursor: pointer;
 }
 
-/* Payment Icons */
 .membership-cr-payment-options {
   display: flex;
   gap: 15px;
@@ -373,7 +377,6 @@
   cursor: pointer;
 }
 
-/* Sidebar & Preview */
 .membership-cr-preview-sidebar {
   flex: 1;
   min-width: 300px;
@@ -399,6 +402,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   overflow: hidden;
   text-align: center;
+  margin-top: 50px;
   padding-bottom: 25px;
 }
 
@@ -426,7 +430,6 @@
 .membership-cr-divider {
   height: 1px;
   background: #eee;
-  /* margin: 15px 0; */
 }
 
 .membership-cr-plan-features {
@@ -443,8 +446,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-weight: 700;
-  color: #111;
+  font-weight: 500;
+  color: #2f2d2d;
 }
 
 .membership-cr-tick-icon {
@@ -464,11 +467,11 @@
   width: 85%;
 }
 
-/* Tags Styling */
 .membership-cr-tags-input {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .membership-cr-tag {
@@ -491,4 +494,42 @@
   text-align: left;
   border-top: 1px solid #f0f0f0;
   padding-top: 10px;
+}
+
+.membership-cr-status-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.membership-cr-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  left: 55px;
+}
+
+.membership-cr-status-dot.active {
+  background-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+.membership-cr-status-dot.hold {
+  background-color: #fd7e14; 
+  box-shadow: 0 0 5px rgba(253, 126, 20, 0.5);
+}
+
+.membership-cr-status-select {
+  padding: 8px 8px 18px 18px; 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
+}
+.membership-cr-tag-input-field{
+  display: flex;
+  width: fit-content;
 }
