@@ -46,6 +46,7 @@ export const DetailedReport = ({ SetMode }) => {
         }
     ];
 
+
     const categories = [
         { id: 1, name: 'Fullstack Dev', percentage: 32, icon: fullStack },
         { id: 2, name: 'Cloud Architect', percentage: 24, icon: CloudArc },
@@ -60,6 +61,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'IP CONFLICT',
             method: 'Multi-region geolocation mismatch',
             risk: 'CRITICAL',
+            isRead: false
         },
         {
             id: '#USR-2245',
@@ -67,6 +69,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'RESUME BOT',
             method: 'Pattern detection in cover letter text',
             risk: 'MODERATE',
+            isRead: false
         },
         {
             id: '#USR-0051',
@@ -74,6 +77,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'FRAUDULENT CREDS',
             method: 'Verification API mismatch',
             risk: 'HIGH',
+            isRead: false
         },
         {
             id: '#USR-9821',
@@ -81,6 +85,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'IP CONFLICT',
             method: 'Multi-region geolocation mismatch',
             risk: 'CRITICAL',
+            isRead: false
         },
         {
             id: '#USR-2245',
@@ -88,6 +93,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'RESUME BOT',
             method: 'Pattern detection in cover letter text',
             risk: 'MODERATE',
+            isRead: false
         },
         {
             id: '#USR-9821',
@@ -95,6 +101,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'IP CONFLICT',
             method: 'Multi-region geolocation mismatch',
             risk: 'CRITICAL',
+            isRead: false
         },
         {
             id: '#USR-2245',
@@ -102,6 +109,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'RESUME BOT',
             method: 'Pattern detection in cover letter text',
             risk: 'MODERATE',
+            isRead: false
         },
         {
             id: '#USR-9821',
@@ -109,6 +117,7 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'IP CONFLICT',
             method: 'Multi-region geolocation mismatch',
             risk: 'CRITICAL',
+            isRead: false
         },
         {
             id: '#USR-2245',
@@ -116,8 +125,54 @@ export const DetailedReport = ({ SetMode }) => {
             reason: 'RESUME BOT',
             method: 'Pattern detection in cover letter text',
             risk: 'MODERATE',
+            isRead: false
         },
+        {
+            id: '#USR-4402',
+            jobId: '#JOB-7712',
+            reason: 'AI GEN CONTENT',
+            method: 'High probability LLM pattern',
+            risk: 'MODERATE',
+            isRead: false
+        },
+        {
+            id: '#USR-8811',
+            jobId: '#JOB-3309',
+            reason: 'PROXY USER',
+            method: 'VPN/Tor exit node detected',
+            risk: 'HIGH',
+            isRead: false
+        },
+        {
+            id: '#USR-6654',
+            jobId: '#JOB-1190',
+            reason: 'DOC TAMPERING',
+            method: 'Metadata mismatch in PDF header',
+            risk: 'CRITICAL',
+            isRead: false
+        }
     ];
+    const [allData, setAllData] = useState(tableData);
+
+    const currentDisplayData = showMore ? allData : allData.slice(0, 3);
+
+    const [openMenuId, setOpenMenuId] = useState(null);
+
+    const handleToggleReadStatus = (indexInCurrentView) => {
+        const actualIndex = showMore ? indexInCurrentView : indexInCurrentView;
+        setAllData(prevData => {
+            return prevData.map((item, idx) => {
+                if (idx === actualIndex) {
+                    return { ...item, isRead: !item.isRead };
+                }
+                return item;
+            });
+        });
+        setOpenMenuId(null);
+    };
+
+
+    const newFlagsCount = allData.filter(item => !item.isRead).length;
 
     const [Data, SetData] = useState(tableData.slice(0, 3))
 
@@ -281,16 +336,16 @@ export const DetailedReport = ({ SetMode }) => {
                         <div className="reports-integrity-card">
                             <div className="reports-integrity-header">
                                 <div className="reports-integrity-title-sec">
-                                    
+
                                     <div>
-                                        <div style={{display:"flex",alignItems:"center",gap:"5px"}}> 
-                                        <img src={IntergrityWatch} width={25} height={25} alt="" />
-                                        <h3 className="reports-integrity-title">Integrity Watch: Flagged Applications</h3></div>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                                            <img src={IntergrityWatch} width={25} height={25} alt="" />
+                                            <h3 className="reports-integrity-title">Integrity Watch: Flagged Applications</h3></div>
                                         <p className="reports-integrity-subtitle">Detected suspicious activity, bot behaviors, or duplicate profiles.</p>
                                     </div>
                                 </div>
                                 <div className="reports-integrity-actions-top">
-                                    <span className="reports-integrity-badge-new">12 New Flags</span>
+                                    <span className="reports-integrity-badge-new">{newFlagsCount} New Flags</span>
                                     <a href="#" className="reports-integrity-link">Review Policy</a>
                                 </div>
                             </div>
@@ -309,34 +364,56 @@ export const DetailedReport = ({ SetMode }) => {
 
 
                                 <div className="reports-integrity-tbody">
-                                    {Data.map((row, index) => (
-                                        <div className="reports-integrity-tr" key={index}>
-                                            <div className="reports-integrity-td reports-integrity-user-cell">
+                                    {currentDisplayData.map((row, index) => (
+                                        <div
+                                            key={index}
+                                            className="reports-integrity-tr"
+                                            style={{ opacity: row.isRead ? 0.6 : 1 }}>
+
+                                            <div
+                                                className="reports-integrity-td reports-integrity-user-cell"
+                                                onClick={() => handleMarkAsRead(row.id)}
+                                                style={{ cursor: "pointer" }}>
                                                 <div className="reports-integrity-user-icon-box">
                                                     <img src={IntegrityProfile} alt="" width={40} />
                                                     <strong className="reports-integrity-id-text">{row.id}</strong>
                                                 </div>
+                                            </div>
 
-                                            </div>
                                             <div className="reports-integrity-td">{row.jobId}</div>
+
                                             <div className="reports-integrity-td">
-                                                <div style={{display:"flex",textAlign:"start",width:"120px",paddingLeft:"25px"}}>
-                                                <span className={`reports-integrity-reason-tag is-${row.risk.toLowerCase()}`}>
-                                                    {row.reason}
-                                                </span>
+                                                <div style={{ display: "flex", textAlign: "start", width: "120px", paddingLeft: "25px" }}>
+                                                    <span className={`reports-integrity-reason-tag is-${row.risk.toLowerCase()}`}>
+                                                        {row.reason}
+                                                    </span>
                                                 </div>
                                             </div>
+
                                             <div className="reports-integrity-td reports-integrity-method-text">{row.method}</div>
-                                            <div  className="reports-integrity-td">
-                                                <div style={{display:"flex",textAlign:"start",width:"120px",paddingLeft:"25px"}}>
-                                                <span style={{textAlign:"start"}} className={`reports-integrity-dot is-${row.risk.toLowerCase()}`}></span>
-                                                <span className={`reports-integrity-risk-text is-${row.risk.toLowerCase()}`}>
-                                                    {row.risk}
-                                                </span>
+                                            <div className="reports-integrity-td">
+                                                <div style={{ display: "flex", textAlign: "start", width: "120px", paddingLeft: "25px" }}>
+                                                    <span style={{ textAlign: "start" }} className={`reports-integrity-dot is-${row.risk.toLowerCase()}`}></span>
+                                                    <span className={`reports-integrity-risk-text is-${row.risk.toLowerCase()}`}>
+                                                        {row.risk}
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div className="reports-integrity-td">
-                                                <button className="reports-integrity-more-btn">⋮</button>
+                                            <div className="reports-integrity-td" style={{ position: 'relative' }}>
+                                                <button className="reports-integrity-more-btn" onClick={() => setOpenMenuId(openMenuId === index ? null : index)}>
+                                                    ⋮
+                                                </button>
+
+                                                {openMenuId === index && (
+                                                    <div className="dropdown-style">
+                                                        <button
+
+                                                            onClick={() => handleToggleReadStatus(index)}
+                                                            style={{ padding: '8px 15px', border: 'none', background: 'none', cursor: 'pointer', whiteSpace: 'nowrap', }}>
+                                                            {row.isRead ? 'Mark as Unread' : 'Mark as Read'}
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     ))}
@@ -345,25 +422,27 @@ export const DetailedReport = ({ SetMode }) => {
 
 
                             <div className="reports-integrity-footer">
-                                {Data.length <= 3 ?
-                                    <div onClick={() => { SetData(tableData) }} className="reports-integrity-footer-link">
+                                {!showMore ? (
+
+                                    <div onClick={() => setShowMore(true)} className="reports-integrity-footer-link">
                                         View Detailed Audit Log <span className="reports-integrity-arrow">→</span>
                                     </div>
-                                    : <div onClick={() => SetData(tableData.slice(0, 3))} className="reports-integrity-footer-link">
-                                       View Less <span className="reports-integrity-arrow">↑</span>     
-                                    </div>}
-                                        
-                                    
+                                ) : (
+
+                                    <div onClick={() => setShowMore(false)} className="reports-integrity-footer-link">
+                                        View Less <span className="reports-integrity-arrow">↑</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 )}
 
                 {activeTab === "Financial Report" && (
-                    <FinancialReport/>
+                    <FinancialReport />
                 )}
                 {activeTab === "User Registration" && (
-                    <UserRegistrationRep/>
+                    <UserRegistrationRep />
                 )}
 
             </div>
