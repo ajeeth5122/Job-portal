@@ -48,32 +48,24 @@ export const Membership = () => {
 
   });
 
-  console.log(formData)
-
+  const [previewData, setPreviewData] = useState({ ...formData });
+  const handleUpdatePreview = () => {
+  setPreviewData({ ...formData });
+};
   const handleToggle = () => {
-    const newValue = !isDefault;
-    setIsDefault(newValue);
-    setFormData((prevData) => ({
-      ...prevData,
-      isDefault: newValue,
-    }));
+  setFormData(prev => ({ ...prev, isDefault: !prev.isDefault }));
   };
 
   const handleTrailToggle = () => {
-    const newValue = !formData.isTrialEnabled;
-    setFormData((prevData) => ({
-      ...prevData,
-      isTrialEnabled: newValue,
-      TrailDuration: newValue ? prevData.TrailDuration : 7,
-    }));
+  setFormData(prev => ({ 
+    ...prev, 
+    isTrialEnabled: !prev.isTrialEnabled,
+    TrailDuration: !prev.isTrialEnabled ? "7" : "" 
+  }));
   };
+
   const handleAutoRenewalToggle = () => {
-    const newValue = !formData.isAutoRenewal;
-    setIsAutoRenewal(newValue)
-    setFormData((prevData) => ({
-      ...prevData,
-      isAutoRenewal: newValue,
-    }));
+  setFormData(prev => ({ ...prev, isAutoRenewal: !prev.isAutoRenewal }));
   };
 
   const handleInputChange = (e) => {
@@ -158,11 +150,17 @@ export const Membership = () => {
 
 
   // Calculation for Total Payable
-  const basePrice = parseFloat(formData.price) || 0;
-  const discountAmt = (basePrice * (parseFloat(formData.discount) || 0)) / 100;
+  const basePrice = parseFloat(previewData.price) || 0;
+  const discountAmt = (basePrice * (parseFloat(previewData.discount) || 0)) / 100;
   const priceAfterDiscount = basePrice - discountAmt;
   const taxAmt = (priceAfterDiscount * (parseFloat(formData.tax) || 0)) / 100;
   const totalPayable = (priceAfterDiscount + taxAmt).toFixed(2);
+
+  const handleSaveDraft = () => {
+  const finalData = { ...formData };
+  console.log("Final Saved Data Object:", finalData);
+  alert("Plan details saved successfully!");
+  };
 
   return (
     <div className="membership-cr-membership-container">
@@ -462,25 +460,27 @@ export const Membership = () => {
 
           {/* Action Buttons */}
           <div className="membership-cr-action-buttons">
-            <button className="membership-cr-btn-save"><img src={Save} alt="" className="membership-cr-btn-icon" /> Save Draft</button>
+            
+            <button onClick={handleSaveDraft} className="membership-cr-btn-save"><img src={Save} alt="" className="membership-cr-btn-icon" /> Save Draft</button>
             <button className="membership-cr-btn-publish"><img src={Publish} alt="" className="membership-cr-btn-icon" /> Publish Plan</button>
           </div>
         </div>
 
 
         <div className="membership-cr-preview-sidebar">
-          <div className="membership-cr-preview-header">
-            <img src={Eye} alt="" className="membership-cr-preview-eye" /> Preview Plan
+          <div style={{justifyContent:"center"}} className="membership-cr-preview-header">
+            {/* <img src={Eye} alt="" className="membership-cr-preview-eye" /> Preview Plan */}
+            <button onClick={handleUpdatePreview} className="membership-cr-btn-update">Update Preview</button>
           </div>
           <div className="membership-cr-preview-card">
-            <div className="membership-cr-plan-badge">{formData.planName.toUpperCase()}</div>
+            <div className="membership-cr-plan-badge">{previewData.planName.toUpperCase()}</div>
             <div className="membership-cr-plan-price">
-              <h2>₹ {totalPayable}<span>/{formData.billingCycle === "Monthly" ? "month" : "year"}</span></h2>
-              <p style={{ marginTop: "10px" }}>{formData.planType}</p>
+              <h2>₹ {totalPayable}<span>/{previewData.billingCycle === "Monthly" ? "month" : "year"}</span></h2>
+              <p style={{ marginTop: "10px" }}>{previewData.planType}</p>
               <div className="membership-cr-divider"></div>
 
               <ul className="membership-cr-plan-features">
-                {formData.features.filter(f => f.active).map((feature) => {
+                {previewData.features.filter(f => f.active).map((feature) => {
                   const isNo = feature.val.toLowerCase() === 'no';
                   return (
                     <li key={feature.id}>
