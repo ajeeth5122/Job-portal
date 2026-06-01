@@ -226,7 +226,6 @@ export const ActivityMonitor = ({initialTab}) => {
                     borderTopRightRadius: "10px"
                   }}>Application Status</h4>
                   <div style={{ margin: "15px 12px", padding: "0px 50px" }}>
-                    <p style={{ padding: "5px 20px", marginTop: "15px", fontWeight: "500" }}>Total Application : 8350</p>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 20px" }}>
                       <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                         <img src={BlueProfile} width={20} height={20} alt="" />
@@ -234,7 +233,7 @@ export const ActivityMonitor = ({initialTab}) => {
                       </div>
                       <span className="admin-stat-number">450</span>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 20px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 20px" }}>
                       <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                         <img src={Interview} width={20} height={20} alt="" />
                         <p style={{ margin: "0px 5px" }}>Interviews</p>

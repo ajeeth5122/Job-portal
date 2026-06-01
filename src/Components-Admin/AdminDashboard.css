@@ -173,15 +173,11 @@
     padding: 6px 14px;
     border-radius: 8px;
     border: none;
-    background: blue;
+    background: #1E88E5;
     color: white;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-}
-
-.Admin-create-btn:hover {
-    background: blue;
 }
 
 .Admin-job-card {

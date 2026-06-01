@@ -32,9 +32,6 @@ import { UserManagement } from './UserManagement'
 import { ActivityMonitor } from './ActivityMonitor'
 import { AdminReports } from './AdminReports'
 import { JobMonitoring } from './JobMonitoring'
-//import { RolePermission } from './RolePermission'
-//import { RoleManagement } from './RoleManagement'
-import { Membership } from './Membership'
 import { AdminSettings } from './AdminSettings'
 import { useNavigate } from 'react-router-dom'
 import YellowProfile from '../assets/AdminAssets/YellowBGProfile.png'
@@ -174,14 +171,6 @@ export const AdminDashboard = () => {
                                 <div className='Enav-item'>User Management</div>
                             </div>
                         </div>
-                        {/* <div onClick={() => setActiveTab('Role Management')} className={activetab === "Role Management" ? "Admin-Active" : 'Admin-Navbar'}>
-                            <div className='Admin-Navbox'>
-                                {activetab === "Role Management" ? <img src={RoleManagementICACT} width={15} height={15} alt="dashboard" />
-                                    : <img src={RoleManagementIC} width={15} height={15} alt="Role Management" />}
-                                <div className='Enav-item'>Role Management</div>
-                            </div>
-                        </div> */}
-
                         <div onClick={() => {setActiveTab('Membership'), setShowHighlightedJobs(false)}} className={activetab === "Membership" ? "Admin-Active" : 'Admin-Navbar'}>
                             <div className='Admin-Navbox'>
                                 {activetab === "Membership" ? <img src={MembershipsAct} width={15} height={15} alt="dashboard" />
@@ -196,13 +185,6 @@ export const AdminDashboard = () => {
                                 <div className='Enav-item'>Support Hub</div>
                             </div>
                         </div>
-                        {/* <div onClick={() => setActiveTab('Reports')} className={activetab === "Reports" ? "Admin-Active" : 'Admin-Navbar'}>
-                            <div className='Admin-Navbox'>
-                                {activetab === "Reports" ? <img src={ReportAct} width={15} height={15} alt="dashboard" />
-                                    : <img src={Report} width={15} height={15} alt="Reports" />}
-                                <div className='Enav-item'>Reports</div>
-                            </div>
-                        </div> */}
                         <div onClick={() => {setActiveTab('settings'); setShowHighlightedJobs(false)}} className={activetab === "settings" ? "Admin-Active" : 'Admin-Navbar'}>
                             <div className='Admin-Navbox'>
                                 {activetab === "settings" ? <img src={SettingsAct} width={15} height={15} alt="dashboard" />
@@ -294,7 +276,7 @@ export const AdminDashboard = () => {
                                             <img src={Highlight} width={22} alt="" />
                                         </div>
                                         <div className="Admin-jobads-buttons">
-                                            <button onClick={() => setShowHighlightedJobs(true)} className="Admin-create-btn">VIEW ALL</button>
+                                            <button onClick={() => setShowHighlightedJobs(true)} className="Admin-create-btn">View all</button>
                                         </div>
                                     </div>
                                     <div style={{ display: "flex", flexDirection: "column", padding: "15px" }}>
@@ -515,11 +497,8 @@ export const AdminDashboard = () => {
                     {activetab === 'Job Monitoring' && <JobMonitoring />}
                     {activetab === 'Activity Monitoring' && (<ActivityMonitor initialTab={subTab} />)}
                     {activetab === 'User Management' && (<UserManagement />)}
-                    {/* {activetab === 'Role Management' && (<RoleManagement />)} */}
-                    {/* {activetab === 'Membership' && (<Membership />)} */}
                     {activetab === 'Membership' && (<PublishedPlans />)}
                     {activetab === 'SupportHub' && (<SupportHub />)}
-                    {/* {activetab === 'Reports' && (<AdminReports />)} */}
                     {activetab === 'settings' && (<AdminSettings />)}
                     {showHighlightedJobs && (<HighlightedJobs setShowHighlightedJobs={setShowHighlightedJobs} />)}
                 </div>
