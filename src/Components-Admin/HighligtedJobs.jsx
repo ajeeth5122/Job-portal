@@ -91,7 +91,6 @@ export const HighlightedJobs = ({setShowHighlightedJobs}) => {
                 </button>            
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", border: "0.5px solid #adadad", margin: "15px", borderRadius: "10px" }}>
                     <h2 style={{ textAlign: "center" }}>Highlighted Jobs</h2>
-                    <img src={Highlight} width={22} alt="" />
                 </div>
  
                 <div style={{ display: "flex", margin: "5px", flexDirection: "column", padding: "15px" }}>

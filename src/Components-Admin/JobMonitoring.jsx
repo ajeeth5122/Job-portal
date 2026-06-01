@@ -125,7 +125,7 @@ export const JobMonitoring = () => {
                                             <div className="more-component" ref={activeMenu === job.id ? menuRef : null}>
 
                                                 <button
-                                                    style={{ padding: '6px 12px', cursor: 'pointer', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px' }}
+                                                    style={{ padding: "7px 10px", cursor: 'pointer', fontSize: '11px' , backgroundColor: '#1E88E5', color: 'white', border: 'none', borderRadius: "5px" }}
                                                     onClick={() => setSelectedJobId(job.id)}
                                                 >View Detail</button>
                                             </div>
@@ -136,7 +136,6 @@ export const JobMonitoring = () => {
                         ) : (
                             <div className="no-results">No jobs match this filter.</div>
                         )}
-
 
 
                         {/* Pagination Section */}
