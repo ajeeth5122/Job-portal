@@ -22,9 +22,9 @@ export const PlansBilling = () => {
     const [cardToDelete, setCardToDelete] = useState(null);
     const [additionalPlan, setAdditionalPlan] = useState(null);
 
-    const calculateBill = membershipData.billingCycle === "6 Months" ? 6 
-                        : membershipData.billingCycle === "Yearly" ? 12 
-                        : 1;
+    const calculateBill = membershipData.billingCycle === "6 Months" ? 6
+        : membershipData.billingCycle === "Yearly" ? 12
+            : 1;
 
     const [billingHistory, setBillingHistory] = useState([
         {
@@ -127,7 +127,7 @@ export const PlansBilling = () => {
 
         autoTable(doc, {
             startY: 133,
-            head: [['Plan name', 'Billing Cycle', 'Start Date','End Date', 'Amount']],
+            head: [['Plan name', 'Billing Cycle', 'Start Date', 'End Date', 'Amount']],
             body: [[
                 data.plan,
                 membershipData.billingCycle || "Monthly",
@@ -153,7 +153,7 @@ export const PlansBilling = () => {
 
     const handleUpgrade = (computedPlan) => {
         const today = new Date();
-        
+
         const calculateNextInvoiceDate = (durationDays) => {
             const date = new Date();
             date.setDate(date.getDate() + (durationDays || 30));
@@ -167,12 +167,12 @@ export const PlansBilling = () => {
             subtotal: computedPlan.subtotal.toFixed(2),
             cgst: computedPlan.cgst.toFixed(2),
             sgst: computedPlan.sgst.toFixed(2),
-            planType: computedPlan.billingCycle, 
+            planType: computedPlan.billingCycle,
             durationDays: computedPlan.duration,
             startDate: today.toISOString().split('T')[0],
             nextInvoice: calculateNextInvoiceDate(computedPlan.duration)
         });
-         
+
         setIsCardOnly(false);
         setView('payment');
     };
@@ -204,7 +204,7 @@ export const PlansBilling = () => {
                     id: freshInvoiceId,
                     plan: additionalPlan.name,
                     date: getCurrentDateFormatted(),
-                    nextDate: additionalPlan.nextInvoice, 
+                    nextDate: additionalPlan.nextInvoice,
                     price: additionalPlan.price,
                     subtotal: additionalPlan.subtotal,
                     cgst: additionalPlan.cgst,
@@ -229,7 +229,7 @@ export const PlansBilling = () => {
                         planName: additionalPlan.name,
                         active: true,
                         startDate: new Date().toISOString().split('T')[0],
-                        expiryDate: additionalPlan.nextInvoice, 
+                        expiryDate: additionalPlan.nextInvoice,
                         billingCycle: additionalPlan.planType,
                         price: parseFloat(additionalPlan.price),
                         lastPaymentId: freshInvoiceId
@@ -252,9 +252,9 @@ export const PlansBilling = () => {
     const handleConfirmCancellation = () => {
         const cancellationEntry = {
             id: membershipData.lastPaymentId || "INV-0000",
-            plan: membershipData.planName, 
-            date: getCurrentDateFormatted(), 
-            price: "0.00", 
+            plan: membershipData.planName,
+            date: getCurrentDateFormatted(),
+            price: "0.00",
             status: "CANCELLED",
             method: "N/A",
             subtotal: "0.00",
@@ -274,8 +274,8 @@ export const PlansBilling = () => {
         const reactivateEntry = {
             id: membershipData.lastPaymentId || generateInvoiceId(),
             plan: membershipData.planName || "Standard Plan",
-            date: getCurrentDateFormatted(), 
-            price: membershipData.price || "0.00", 
+            date: getCurrentDateFormatted(),
+            price: membershipData.price || "0.00",
             status: "ACTIVE",
             method: "N/A",
             subtotal: "0.00",
@@ -328,7 +328,7 @@ export const PlansBilling = () => {
     if (view === 'upgrade') {
         return (
             <div className="PlansBilling-container">
-                <button className="PlansBilling-btn-back" onClick={() => setView('overview')}>← Back to Billing</button>
+                <button className="PlansBilling-btn-back" onClick={() => setView('overview')}>Back to Billing</button>
                 <MembershipPlans onSelectPlan={handleUpgrade} />
             </div>
         );
@@ -354,7 +354,7 @@ export const PlansBilling = () => {
                 </div>
                 <div className="PlansBilling-plan-actions">
                     <span className="PlansBilling-main-price">
-                        ₹ {(parseFloat(membershipData.price)).toFixed(2)} 
+                        ₹ {(parseFloat(membershipData.price)).toFixed(2)}
                         <small> / {membershipData.billingCycle}</small>
                     </span>
                     <div className="PlansBilling-button-group">
@@ -372,7 +372,7 @@ export const PlansBilling = () => {
                 <div className="PlansBilling-card PlansBilling-invoice-box" style={{ position: 'relative' }}>
                     <h3 className="PlansBilling-section-title">Next Invoices</h3>
                     <p className="PlansBilling-invoice-price">
-                       ₹ {pendingInvoices.length > 0 ? pendingInvoices[0].price : "0.00"}/-
+                        ₹ {pendingInvoices.length > 0 ? pendingInvoices[0].price : "0.00"}/-
                     </p>
 
                     <div className="PlansBilling-invoice-details">

@@ -1,83 +1,75 @@
 import React, { useState } from 'react';
 import './MembershipPlans.css';
 import { useJobs } from '../JobContext';
+import Tick from '../assets/AdminAssets/Greentick.png';
+import RedCross from '../assets/AdminAssets/RedCross.png';
+import '../Components-Admin/PublishedPlan.css';
+import '../Components-Admin/Membership.css';
 
-export const MembershipPlans = ({onSelectPlan}) => {
+export const MembershipPlans = ({ onSelectPlan }) => {
     const [activeTab, setActiveTab] = useState('Monthly');
-    const { allPlans, currentEmployer,setCurrentEmployer} = useJobs(); 
+    const { allPlans, currentEmployer, setCurrentEmployer } = useJobs();
 
-const getCalculatedTabPlans = () => {
-    return (allPlans).map((masterPlan) => {
-        const originalPrice = parseFloat(masterPlan.price) || 0;
-        if (originalPrice === 0) {
+    const getCalculatedTabPlans = () => {
+        return (allPlans).map((masterPlan) => {
+            const originalPrice = parseFloat(masterPlan.price) || 0;
+            if (originalPrice === 0) {
+                return {
+                    ...masterPlan,
+                    currentBillingCycle: activeTab,
+                    displayPrice: 0,
+                    effectiveDiscount: 0,
+                    monthsMultiplier: 1,
+                    totalCalculatedAmount: 0
+                };
+            }
+
+            let discountPercentage = 0;
+            let monthsMultiplier = 1;
+
+            if (activeTab === '6 Months') {
+                discountPercentage = masterPlan.discount_halfyear;
+                monthsMultiplier = 6;
+            } else if (activeTab === 'Yearly') {
+                discountPercentage = masterPlan.discount_annual;
+                monthsMultiplier = 12;
+            } else if (activeTab === 'Monthly') {
+                discountPercentage = 0;
+                monthsMultiplier = 1;
+            }
+
+            const discountedPricePerMonth = originalPrice - (originalPrice * (discountPercentage / 100));
+            const totalCalculatedAmount = Math.round(discountedPricePerMonth) * monthsMultiplier;
+
             return {
                 ...masterPlan,
                 currentBillingCycle: activeTab,
-                displayPrice: 0,
-                effectiveDiscount: 0,
-                monthsMultiplier: 1,
-                calculatedDuration: masterPlan.duration || 30,
-                totalCalculatedAmount: 0 
+                displayPrice: Math.round(discountedPricePerMonth),
+                effectiveDiscount: discountPercentage,
+                monthsMultiplier: monthsMultiplier,
+                totalCalculatedAmount: totalCalculatedAmount
             };
-        }
+        });
+    };
 
-        let discountPercentage = 0;
-        let monthsMultiplier = 1;
-        let calculatedDuration = 30;
+    const handlePlanSelection = (computedPlan) => {
+        const subtotal = computedPlan.totalCalculatedAmount;
 
-        if (activeTab === '6 Months') {
-            discountPercentage = 10; 
-            monthsMultiplier = 6;
-            calculatedDuration = 180;
-        } else if (activeTab === 'Yearly') {
-            discountPercentage = 15; 
-            monthsMultiplier = 12;
-            calculatedDuration = 365;
-        } else if (activeTab === 'Monthly') {
-            discountPercentage = 0; 
-            monthsMultiplier = 1;
-            calculatedDuration = 30;
-        }
+        const taxRate = (computedPlan.tax) / 100;
+        const cgst = (subtotal * taxRate) / 2;
+        const sgst = (subtotal * taxRate) / 2;
+        const totalWithTax = subtotal + cgst + sgst;
 
-        const discountedPricePerMonth = originalPrice - (originalPrice * (discountPercentage / 100));
-        const totalCalculatedAmount = Math.round(discountedPricePerMonth) * monthsMultiplier;
+        onSelectPlan({
+            ...computedPlan,
+            subtotal: parseFloat(subtotal.toFixed(2)),
+            cgst: parseFloat(cgst.toFixed(2)),
+            sgst: parseFloat(sgst.toFixed(2)),
+            totalWithTax: parseFloat(totalWithTax.toFixed(2)),
+            status: 'active'
+        });
 
-        return {
-            ...masterPlan,
-            currentBillingCycle: activeTab,
-            displayPrice: Math.round(discountedPricePerMonth),
-            effectiveDiscount: discountPercentage,
-            monthsMultiplier: monthsMultiplier,
-            calculatedDuration: calculatedDuration,
-            totalCalculatedAmount: totalCalculatedAmount 
-        };
-    });
-};
-
-const handlePlanSelection = (computedPlan) => {
-    const subtotal = computedPlan.totalCalculatedAmount;
-
-    const taxRate = (computedPlan.tax || 18) / 100;
-    const cgst = (subtotal * taxRate) / 2;
-    const sgst = (subtotal * taxRate) / 2;
-    const totalWithTax = subtotal + cgst + sgst;
-
-    onSelectPlan({
-        ...computedPlan,
-        level: computedPlan.planLevel,
-        name: computedPlan.PlanName, 
-        subtitle: computedPlan.badge,
-        billingCycle: computedPlan.currentBillingCycle,
-        duration: computedPlan.calculatedDuration,
-        discount: computedPlan.effectiveDiscount,
-        subtotal: parseFloat(subtotal.toFixed(2)),
-        cgst: parseFloat(cgst.toFixed(2)),
-        sgst: parseFloat(sgst.toFixed(2)),
-        totalWithTax: parseFloat(totalWithTax.toFixed(2)),
-        status: 'active'
-    });
-
-    setCurrentEmployer(prev => ({
+        setCurrentEmployer(prev => ({
             ...prev,
             membership: {
                 planLevel: computedPlan.level,
@@ -94,16 +86,16 @@ const handlePlanSelection = (computedPlan) => {
             }
         }));
 
-};
+    };
 
-const dynamicPlansToRender = getCalculatedTabPlans();
+    const dynamicPlansToRender = getCalculatedTabPlans();
 
     return (
         <div className="MembershipPlans">
             <div className="MembershipPlans-header-box">
                 <h2>Employer Membership Plan</h2>
-                <p>Find the best plan to attract top talent</p>
-                
+                <p>Find the best plan to hire top talent</p>
+
                 {currentEmployer?.membership?.active && (
                     <div className="current-user-status-strip">
                         Your Current Plan: <strong>{currentEmployer.membership.planName}</strong>
@@ -127,14 +119,14 @@ const dynamicPlansToRender = getCalculatedTabPlans();
             {/* Grid display */}
             <div className={`MembershipPlans-grid ${dynamicPlansToRender.length === 2 ? 'two-cols' : ''}`}>
                 {dynamicPlansToRender.map((plan) => {
-                    const isUserCurrentPlan = 
-                        currentEmployer?.membership?.active && 
+                    const isUserCurrentPlan =
+                        currentEmployer?.membership?.active &&
                         currentEmployer?.membership?.planLevel === plan.planLevel;
 
                     return (
                         <div key={plan.id} className={`MembershipPlans-card ${isUserCurrentPlan ? 'is-active-plan' : ''}`}>
-                            <div 
-                                className="MembershipPlans-banner" 
+                            <div
+                                className="MembershipPlans-banner"
                                 style={{ backgroundColor: plan.color || '#1e90ff' }}
                             >
                                 {plan.PlanName}
@@ -142,7 +134,7 @@ const dynamicPlansToRender = getCalculatedTabPlans();
                                     <span className="discount-tag-badge"> ({plan.effectiveDiscount}% OFF)</span>
                                 )}
                             </div>
-                            
+
                             <div className="MembershipPlans-content">
                                 <div className="MembershipPlans-price-box">
                                     <div className="MembershipPlans-amount-container">
@@ -158,19 +150,34 @@ const dynamicPlansToRender = getCalculatedTabPlans();
                                             </>
                                         )}
                                     </div>
-                                    <span className="MembershipPlans-subtitle">{plan.badge}</span>
+                                    <span className="MembershipPlans-subtitle">{plan.summary}</span>
                                 </div>
                                 <hr className="MembershipPlans-divider" />
 
                                 {/* Features List */}
                                 <ul className="MembershipPlans-features-list">
                                     {(plan.features || []).map((feat, i) => (
-                                        <li key={i} className={feat.isInclude ? 'included' : 'excluded'}>
-                                            <span className="MembershipPlans-icon">
-                                                {feat.isInclude ? '✔' : '✘'}
-                                            </span>
-                                            {feat.value} {feat.text}
-                                        </li>
+                                        feat.text === 'Jobs Posting' ?
+                                            (<li
+                                                key={i}
+                                                className={'published-plan-feature-item included'}>
+                                                <span className="MembershipPlans-icon">
+                                                    <img src={Tick} alt={"yes"} width={14}/>
+                                                </span>
+                                                  Post {feat.value} jobs per month
+                                            </li>)
+                                            : (<li
+                                                key={i}
+                                                className={`published-plan-feature-item ${feat.value ? 'included' : 'excluded'}`}
+                                            >
+                                                <span className="MembershipPlans-icon">
+                                                    <img src={feat.value ? Tick : RedCross} alt={feat.value ? "yes" : "no"} width={15} />
+                                                </span>
+                                                <span className="published-plan-feature-text">
+                                                    {feat.value ? <strong style={{ marginRight: '5px' }}>{feat.value}</strong> : null}
+                                                    {feat.text}
+                                                </span>
+                                            </li>)
                                     ))}
                                 </ul>
 

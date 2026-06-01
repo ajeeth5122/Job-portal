@@ -20,11 +20,11 @@ export const JobProvider = ({ children }) => {
             tax: 18,
             color: '#1e90ff',
             features: [
-                { text: 'Jobs Posting', value: "1"},
+                { text: 'Jobs Posting', value: "1" },
                 { text: 'Analytics', value: false },
                 { text: 'Candidate Search', value: false },
                 { text: 'Highlight Your Job Listing', value: false },
-                { text: 'Premium Support', value: false},
+                { text: 'Premium Support', value: false },
                 { text: 'Account Manager', value: false },
             ],
             isTrialEnabled: false,
@@ -43,11 +43,11 @@ export const JobProvider = ({ children }) => {
             tax: 18,
             color: '#ff6c00',
             features: [
-                { text: 'Jobs Posting', value: "30"},
+                { text: 'Jobs Posting', value: "30" },
                 { text: 'Analytics', value: true },
                 { text: 'Candidate Search', value: true },
                 { text: 'Highlight Your Job Listing', value: false },
-                { text: 'Premium Support', value: false},
+                { text: 'Premium Support', value: false },
                 { text: 'Account Manager', value: false },
             ],
             isTrialEnabled: false,
@@ -66,11 +66,11 @@ export const JobProvider = ({ children }) => {
             tax: 18,
             color: '#8a2be2',
             features: [
-                { text: 'Jobs Posting', value: "100"},
+                { text: 'Jobs Posting', value: "100" },
                 { text: 'Analytics', value: true },
                 { text: 'Candidate Search', value: true },
                 { text: 'Highlight Your Job Listing', value: true },
-                { text: 'Premium Support', value: true},
+                { text: 'Premium Support', value: true },
                 { text: 'Account Manager', value: true },
             ],
             isTrialEnabled: false,
@@ -740,16 +740,6 @@ export const JobProvider = ({ children }) => {
                         )
                     }));
                 }
-                // if (user.role === "employer" && user.id === currentEmployer?.id) {
-                //     return {
-                //         ...user,
-                //         jobPosted: user.jobPosted.map(job =>
-                //             job.id === jobId
-                //                 ? { ...job, applicants: job.applicants } 
-                //                 : job
-                //         )
-                //     };
-                // }
                 return user;
             })
         );
@@ -868,29 +858,7 @@ export const JobProvider = ({ children }) => {
             navigate('/Job-portal/jobseeker/myjobs');
         }
     };
-    // const onSelectPlan = (membershipDetails) => {
-    //     console.log("Upgrading to Level:", membershipDetails.level);
-    //     setCurrentEmployer(prev => ({
-    //         ...prev,
-    //         membership: {
-    //             planLevel: membershipDetails.level,
-    //             planName: membershipDetails.name,
-    //             startDate: membershipDetails.startDate,
-    //             expiryDate: membershipDetails.expiryDate,
-    //             billingCycle: membershipDetails.billingCycle,
-    //             status: membershipDetails.status,
-    //             paymentDetails: {
-    //                 subtotal: membershipDetails.subtotal,
-    //                 tax: membershipDetails.cgst + membershipDetails.sgst,
-    //                 total: membershipDetails.totalWithTax
-    //             }
-    //         }
-    //     }));
-
-    //     alert(`${membershipDetails.name} activated successfully!`);
-
-    // };
-
+    
 
     const toggleHighlight = (jobId) => {
         const planLevel = currentEmployer.membership.planLevel;
@@ -975,7 +943,7 @@ export const JobProvider = ({ children }) => {
             addChatToSidebar, currentUser, withdrawJobFromUser, updateApplicantStatus, isJobApplied, currentEmployer,
             getJobStats, savedJobs, appliedJobs, currentUserId, withdrawApplication, removeRejectedJob, addEmployerNotification, setCurrentEmployer,
             toggleHighlight, getFeaturesForPlan, publishedPlans, allPlans, setAllPlans, raisedTickets, setRaisedTickets, reports, setReports,
-            enquiries, setEnquiries//companyProfile, setCompanyProfile,onSelectPlan, 
+            enquiries, setEnquiries
         }}>
             {children}
         </JobContext.Provider>
