@@ -35,10 +35,7 @@ import { AboutYourCompany } from './AboutYourCompany'
 import place from '../assets/opportunity_location.png'
 import { AnalyticsPage } from './AnalyticsPage'
 import { LogoutModal } from '../Components-JobseekerSignup/LogoutModal'
-import { BillingSec } from './BillingSec'
 import { PlansBilling } from './PlansBilling'
-
-
 
 export const EmployerDashboard = () => {
     const { currentEmployer, getJobStats } = useJobs();
@@ -321,9 +318,7 @@ export const EmployerDashboard = () => {
                     {activetab === 'Analytics' && (<AnalyticsPage />)}
 
                     {activetab === 'Billing' && ( <PlansBilling/>)}
-                    {/* {activetab === 'Billing' && ( <BillingSec/>)}     */}
                     
-
                     {activetab === 'My Profile' && (<AboutYourCompany hideNavigation={true} setActiveTab={setActiveTab} />)}
 
                 </div>

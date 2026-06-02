@@ -150,6 +150,7 @@
   font-size: 14px;
   padding: 9px 0;
   display: flex;
+  justify-content: left;
   align-items: center;
   line-height: 1.4;
 }

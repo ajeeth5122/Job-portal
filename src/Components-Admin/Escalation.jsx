@@ -11,7 +11,6 @@ import Priority from '../assets/AdminAssets/Priority.png';
 import AdminCategory from '../assets/AdminAssets/AdminCategory.png';
 import AdminStatus from '../assets/AdminAssets/AdminStatus.png';
 import { JobMonitorOverview } from './JobMonitorOverview';
-;
 
 export const Escalation = () => {
     const { reports, setReports } = useJobs();
@@ -142,6 +141,7 @@ export const Escalation = () => {
 
                 <div className="RepAJob-section">
                     <h4>Report details</h4>
+                    <p>Job Id: {selectedReport.JobId}</p>
                     <p className="RepAJob-description-text">
                         {selectedReport.explanation}
                     </p>
@@ -155,8 +155,7 @@ export const Escalation = () => {
                         <img src={deleteIcon} alt="delete-icon" className="RepAJob-btn-icon-img" style={{ marginRight: '6px' }} />
                         Delete
                     </button>
-                    <button style={{background:"#2b8bf9"}}  onClick={() => setShowJobOverviewId(selectedReport.jobId)} className="RepAJob-btn-action">
-                        <img src={deleteIcon} alt="delete-icon" className="RepAJob-btn-icon-img" style={{ marginRight: '6px' }} />
+                    <button style={{background:"#2b8bf9"}}  onClick={() => setShowJobOverviewId(selectedReport.JobId)} className="RepAJob-btn-action">
                         View this Job
                     </button>
                 </div>
@@ -197,6 +196,7 @@ export const Escalation = () => {
                         <tr>
                             <th>REPORT ID</th>
                             <th>SUBJECT</th>
+                            <th>JOB ID</th>
                             <th>USER</th>
                             <th>CATEGORY</th>
                             <th style={{ paddingLeft: "40px" }}>PRIORITY</th>
@@ -210,9 +210,10 @@ export const Escalation = () => {
                             reports.map((item, index) => {
                                 const itemPriority = item.priority || 'Medium';
                                 return (
-                                    <tr key={item.RepId || index}>
-                                        <td>{item.RepId}</td>
+                                    <tr key={item.id || index}>
+                                        <td>{item.id}</td>
                                         <td>{item.reason || "Progress, project & status reports"}</td>
+                                        <td>{item.JobId}</td>
                                         <td>{item.firstName} {item.lastName}</td>
                                         <td>Report</td>
                                         <td>

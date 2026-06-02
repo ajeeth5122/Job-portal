@@ -1,51 +1,51 @@
-.AdminTickets-container{
-    width: 95%;
-    background: #fff;
-    border-radius: 14px;
-    padding: 24px;
-    border: 1px solid #e5e7eb;
+.AdminTickets-container {
+  width: 95%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
 }
- 
-.AdminTickets-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+
+.AdminTickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
- 
-.AdminTickets-header h2{
-    font-size: 28px;
-    margin-bottom: 5px;
-    color: #111827;
+
+.AdminTickets-header h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+  color: #111827;
 }
- 
-.AdminTickets-header p{
-    font-size: 15px;
-    color: #6b7280;
+
+.AdminTickets-header p {
+  font-size: 15px;
+  color: #6b7280;
 }
- 
-.AdminTickets-table-wrapper{
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
+
+.AdminTickets-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
 }
- 
-.AdminTickets-table{
-    width: 100%;
-    border-collapse: collapse;
+
+.AdminTickets-table {
+  width: 100%;
+  border-collapse: collapse;
 }
- 
-.AdminTickets-table thead{
-    background: #f9fafb;
+
+.AdminTickets-table thead {
+  background: #f9fafb;
 }
- 
-.AdminTickets-table th{
-    padding: 16px;
-    text-align: left;
-    font-size: 14px;
-    color: #374151;
-    border-bottom: 1px solid #e5e7eb;
+
+.AdminTickets-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
 }
  
 .AdminTickets-table td{
@@ -56,15 +56,15 @@
     text-align: left;
     font-weight: 400;
 }
- 
-.AdminTickets-status{
-    padding: 6px 5px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 500;
-    margin: 0;
-    border: none;
-    outline: none;
+
+.AdminTickets-status {
+  padding: 6px 5px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+  margin: 0;
+  border: none;
+  outline: none;
 }
  
 .AdminTickets-status.Pending{
@@ -80,10 +80,10 @@
     width: 50px;
     padding-left: 10px;
 }
- 
-.AdminTickets-status.InProgress{
-    background: #dbeafe;
-    color: #1d4ed8;
+
+.AdminTickets-status.InProgress {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 .AdminTickets-status.Hold{
     background: #f5d72c;
@@ -157,7 +157,7 @@
   border-bottom: 1px solid #f0f0f0;
   padding: 25px 15px;
   margin-bottom: 25px;
-  border: 1px solid #e5e7eb;;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
 }
 
@@ -245,7 +245,7 @@
   font-size: 15px;
   margin-bottom: 20px;
   height: 100px;
-  border: 1px solid #e5e7eb;;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 25px 10px;
 }
@@ -397,36 +397,46 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4); /* background dimming */
+    background-color: rgba(0, 0, 0, 0.4); 
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
- 
-/* Modal box content */
 .status-modal-content {
-    background: #ffffff;
+    background: #ad1010;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     width: 260px;
     text-align: center;
+    
 }
  
 .status-modal-options {
     display: flex;
+    flex-direction: column;
+    width: fit-content;
     gap: 8px;
     margin: 15px 0;
+    display: flex;
+    position: relative;
+    top: 0;
+    left:0;
+    background-color: #979494;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 9999;
 }
  
 .status-modal-options button {
     padding: 10px;
     border: 1px solid #ddd;
-    background: #fdfdfd;
+    background: #898989;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+    width: 100px;
 }
  
 .status-modal-options button:hover {
@@ -434,9 +444,8 @@
 }
  
 .status-modal-cancel {
-    background: none;
     border: none;
-    color: #888;
+    color: #ba1717;
     text-decoration: underline;
     cursor: pointer;
     margin-top: 5px;

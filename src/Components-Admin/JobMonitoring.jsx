@@ -2,17 +2,15 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import './JobMonitoring.css';
 import { JobPreviewModal } from './JobPreviewModal';
 import { useJobs } from '../JobContext';
-
+import flag from '../assets/AdminAssets/Flag_mark.png'
 import { JobMonitorOverview } from './JobMonitorOverview';
 
 export const JobMonitoring = () => {
-    const {jobs,setJobs,deleteJob}=useJobs();
+    const { jobs, setJobs, deleteJob } = useJobs();
     const [activeMenu, setActiveMenu] = useState(null);
     const menuRef = useRef(null);
     const [filterType, setFilterType] = useState('Newest');
     const [selectedJobId, setSelectedJobId] = useState(null);
-
-    
 
 
     useEffect(() => {
@@ -23,7 +21,7 @@ export const JobMonitoring = () => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -84,125 +82,105 @@ export const JobMonitoring = () => {
         setActiveMenu(null);
     };
 
-
-    const handleApprove = (id) => {
-        setJobs(prev => prev.map(j => j.id === id ? { ...j, status: 'Approved' } : j));
-    };
-
-    const handleReject = (id) => {
-        if (window.confirm("Reject this job?")) {
-            setJobs(prev => prev.map(j => j.id === id ? { ...j, status: 'Rejected' } : j));
-        }
-    };
-
-    const handleToggleFlag = (id) => {
-        setJobs(prev => prev.map(j => j.id === id ? { ...j, isFlagged: !j.isFlagged } : j));
-        setActiveMenu(null);
-    };
-
-    const handleDelete = (id) => {
-        if (window.confirm("Permanent delete?")) {
-            setJobs(prev => prev.filter(j => j.id !== id));
-        }
-    };
-
-    return(
+    return (
         <>
-        {!selectedJobId ? (
-        <div className="job-monitoring-component">
-            <div className="monitoring-header-top">
-                <div className="header-text-group">
-                    <h1 className="main-title">Job Monitoring</h1>
-                    <p className="sub-title">Monitor and manage all job postings, application activity, and overall platform performance</p>
-                </div>
-                
-            </div>
+            {!selectedJobId ? (
+                <div className="job-monitoring-component">
+                    <div className="monitoring-header-top">
+                        <div className="header-text-group">
+                            <h1 className="main-title">Job Monitoring</h1>
+                            <p className="sub-title">Monitor and manage all job postings, application activity, and overall platform performance</p>
+                        </div>
 
-            <div className="monitoring-container">
-                <div className="table-header">
-                    <div>Roles</div>
-                    <div>Companies</div>
-                    <div style={{paddingLeft:"35px"}}>Status</div>
-                    <div>Posted Date</div>
-                    <div>Actions</div>
-                </div>
+                    </div>
 
-                {currentPosts.length > 0 ? (
-                    currentPosts.map((job) => (
-                        <div key={job.id} className={`job-row ${job.isFlagged ? 'flagged-row' : ''}`}>
-                            <div className="cell role-col">
-                                <span className="text-role">{job.title}</span>
-                                {job.isFlagged && <span className="flag-indicator">🚩</span>}
-                            </div>
-                            <div className="cell company-col text-company">{job.company}</div>
-                            <div className="cell status-col">
-                                <span className={`status-pill posted`}>{job.status || 'posted'}</span>
-                            </div>
-                            <div className="cell date-col text-date">{job.posted}</div>
-                            <div className="cell actions-col">
-                                <div className="action-icons-container">
-                                    
-                                    <div className="more-component"ref={activeMenu === job.id ? menuRef : null}>
+                    <div className="monitoring-container">
+                        <div className="table-header">
+                            <div>Id</div>
+                            <div>Roles</div>
+                            <div>Companies</div>
+                            <div>Status</div>
+                            <div>Posted Date</div>
+                            <div style={{ textAlign: 'right' }}>Actions</div>
+                        </div>
 
-                                        <button 
-                                        style={{ padding: '6px 12px', cursor: 'pointer', backgroundColor: '#007bff', color: '#white', border: 'none', borderRadius: '4px' }}
-                                        onClick={() => setSelectedJobId(job.id)}
-                                    >View Detail</button>
+                        {currentPosts.length > 0 ? (
+                            currentPosts.map((job) => (
+                                <div key={job.id} className={`job-row ${job.isFlagged ? 'flagged-row' : ''}`}>
+                                    <div className="cell id-col">
+                                        <span className="text-id">#{job.id}</span>
+                                    </div>
+                                    <div className="cell role-col">
+                                        <span className="text-role">{job.title}</span>
+                                        {job.isFlagged && <span className="flag-indicator"><img src={flag} alt='flagged' className='flag-design' /></span>}
+                                    </div>
+                                    <div className="cell company-col text-company">{job.company}</div>
+                                    <div className="cell status-col">
+                                        <span className={`status-pill ${job.status || "posted"}`}>{job.status || "posted"}</span>
+                                    </div>
+                                    <div className="cell date-col text-date">{job.posted}</div>
+                                    <div className="cell actions-col">
+                                        <div className="action-icons-container">
+
+                                            <div className="more-component" ref={activeMenu === job.id ? menuRef : null}>
+
+                                                <button
+                                                    style={{ padding: "7px 10px", cursor: 'pointer', fontSize: '11px' , backgroundColor: '#1E88E5', color: 'white', border: 'none', borderRadius: "5px" }}
+                                                    onClick={() => setSelectedJobId(job.id)}
+                                                >View Detail</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            ))
+                        ) : (
+                            <div className="no-results">No jobs match this filter.</div>
+                        )}
+
+
+                        {/* Pagination Section */}
+                        {totalPages > 0 && (
+                            <div className="pagination-bar">
+                                <button
+                                    className="page-nav-btn"
+                                    disabled={currentPage === 1}
+                                    onClick={() => paginate(currentPage - 1)}
+                                > &lt; </button>
+
+                                {[...Array(totalPages)].map((_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        className={`page-num-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                                        onClick={() => paginate(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+
+                                <button
+                                    className="page-nav-btn"
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => paginate(currentPage + 1)}
+                                > &gt; </button>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <div className="no-results">No jobs match this filter.</div>
-                )}
-                
-                
-
-                {/* Pagination Section */}
-                {totalPages > 0 && (
-                    <div className="pagination-bar">
-                        <button
-                            className="page-nav-btn"
-                            disabled={currentPage === 1}
-                            onClick={() => paginate(currentPage - 1)}
-                        > &lt; </button>
-
-                        {[...Array(totalPages)].map((_, index) => (
-                            <button
-                                key={index + 1}
-                                className={`page-num-btn ${currentPage === index + 1 ? 'active' : ''}`}
-                                onClick={() => paginate(index + 1)}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-
-                        <button
-                            className="page-nav-btn"
-                            disabled={currentPage === totalPages}
-                            onClick={() => paginate(currentPage + 1)}
-                        > &gt; </button>
+                        )}
                     </div>
-                )}
-            </div>
-            {/* {selectedJob && <JobPreviewModal job={selectedJob} onClose={() => setSelectedJob(null)} />} */}
-        </div>
-        ):(<>
-                        <div style={{ display: 'flex', marginBottom: '10px' }}>
-                            <button 
-                                onClick={() => setSelectedJobId(null)} 
-                                style={{ background: '#a09f9f',borderRadius:"5px", padding:"7px 11px",border: 'none', fontSize: '16px', cursor: 'pointer', fontWeight: 'bold', color: '#fff' }}
-                            >Back</button>
-                                
-                            
-                        </div>
-                        <JobMonitorOverview jobId={selectedJobId} setSelectedJobId={setSelectedJobId} />
-                        
-                    
-                     </>
-                )}
-    
-    </>
+                    {/* {selectedJob && <JobPreviewModal job={selectedJob} onClose={() => setSelectedJob(null)} />} */}
+                </div>
+            ) : (<>
+                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                    <button
+                        onClick={() => setSelectedJobId(null)}
+                        style={{ background: '#a09f9f', borderRadius: "5px", padding: "7px 11px", border: 'none', fontSize: '16px', cursor: 'pointer', fontWeight: 'bold', color: '#fff' }}
+                    >Back</button>
+
+
+                </div>
+                <JobMonitorOverview jobId={selectedJobId} setSelectedJobId={setSelectedJobId} />
+
+            </>
+            )}
+
+        </>
     )
 };

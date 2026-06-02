@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useJobs } from '../JobContext'
 import Highlight from '../assets/Employer/HighLight-Active.png'
-
-export const HighligtedJobs = () => {
+import backIcon from '../assets/AdminAssets/BackBtn.png';
+ 
+export const HighlightedJobs = ({setShowHighlightedJobs}) => {
     const { jobs } = useJobs()
     const jobAds = jobs.filter(job => job.isHighlighted === true)
-
+ 
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 5;
     const lastIndex = currentPage * recordsPerPage;
@@ -13,45 +14,45 @@ export const HighligtedJobs = () => {
     const currentJobs = jobAds.slice(firstIndex, lastIndex);
     const npage = Math.ceil(jobAds.length / recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
-
+ 
     const renderPageNumbers = () => {
         const pageNumbers = [];
         const siblingCount = 1;
-
+ 
         if (npage <= 5) {
             for (let i = 1; i <= npage; i++) {
                 pageNumbers.push(i);
             }
         } else {
             pageNumbers.push(1);
-
+ 
             let startPage = Math.max(2, currentPage - siblingCount);
             let endPage = Math.min(npage - 1, currentPage + siblingCount);
-
-
+ 
+ 
             if (currentPage <= 3) {
                 endPage = 4;
             }
-
+ 
             if (currentPage >= npage - 2) {
                 startPage = npage - 3;
             }
-
+ 
             if (startPage > 2) {
                 pageNumbers.push('...');
             }
-
+ 
             for (let i = startPage; i <= endPage; i++) {
                 pageNumbers.push(i);
             }
-
+ 
             if (endPage < npage - 1) {
                 pageNumbers.push('...');
             }
-
+ 
             pageNumbers.push(npage);
         }
-
+ 
         return pageNumbers.map((number, index) => {
             if (number === '...') {
                 return <span key={`dots-${index}`} className="dots">...</span>;
@@ -66,28 +67,32 @@ export const HighligtedJobs = () => {
             );
         });
     };
-
+ 
     const prePage = () => {
         if (currentPage !== 1) setCurrentPage(currentPage - 1);
     }
-
+ 
     const changeCPage = (id) => {
         setCurrentPage(id);
     }
-
+ 
     const nextPage = () => {
         if (currentPage !== npage) setCurrentPage(currentPage + 1);
     }
-
+ 
     return (
-
+ 
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '600px', justifyContent: 'space-between', border: "0.5px solid #adadad", marginTop: "5px", borderRadius: "10px" }}>
             <div>
+                <button className="Dash-btn-back"
+                    onClick={() => setShowHighlightedJobs(false)}
+                    style={{display: "flex",alignItems: "center",gap: "10px",background: "#ffffff",border: "1px solid #d1d5db",borderRadius: "10px",padding: "10px 18px",fontWeight: "600",color: "#374151",cursor: "pointer",margin: "15px",}}>
+                    <img src={backIcon} alt="back" className="btn-icon-img" style={{width: "18px",height: "18px",objectFit: "contain"}}/>Back to Dashboard
+                </button>            
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", border: "0.5px solid #adadad", margin: "15px", borderRadius: "10px" }}>
                     <h2 style={{ textAlign: "center" }}>Highlighted Jobs</h2>
-                    <img src={Highlight} width={22} alt="" />
                 </div>
-
+ 
                 <div style={{ display: "flex", margin: "5px", flexDirection: "column", padding: "15px" }}>
                     {currentJobs.length > 0 ? (
                         currentJobs.map((job, index) => (
@@ -120,7 +125,7 @@ export const HighligtedJobs = () => {
                     )}
                 </div>
             </div>
-
+ 
             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '20px', marginTop: "auto" }}>
                 <ul style={{ display: 'flex', listStyle: 'none', gap: '10px', alignItems: 'center', visibility: jobAds.length > 0 ? 'visible' : 'hidden' }}>
                     <li>
@@ -130,14 +135,14 @@ export const HighligtedJobs = () => {
                     </li>
                     {/* {numbers.map((n, i) => (
                         <li key={i}>
-                            <button onClick={() => changeCPage(n)} 
-                                style={{ 
-                                    backgroundColor: currentPage === n ? '#007bff' : '#fff', 
-                                    color: currentPage === n ? '#fff' : '#000', 
-                                    border: '1px solid #ccc', 
-                                    padding: '5px 10px', 
-                                    cursor: 'pointer', 
-                                    borderRadius: '4px' 
+                            <button onClick={() => changeCPage(n)}
+                                style={{
+                                    backgroundColor: currentPage === n ? '#007bff' : '#fff',
+                                    color: currentPage === n ? '#fff' : '#000',
+                                    border: '1px solid #ccc',
+                                    padding: '5px 10px',
+                                    cursor: 'pointer',
+                                    borderRadius: '4px'
                                 }}>
                                 {n}
                             </button>
