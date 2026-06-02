@@ -6,11 +6,17 @@ import { Footer } from '../Components-LandingPage/Footer';
 import { useJobs } from '../JobContext';
 
 export const ReportAJob = () => {
+   const { jobs, setReports } = useJobs();
     const navigate = useNavigate();
-    const {jobId}=useParams();
-    const {setReports}=useJobs();
+    const { id } = useParams();
+
+    
+    const job = jobs.find(singleJob => singleJob.id === id)
+
+    console.log(job)
+
     const initialValues = {
-        jobId: jobId,
+        jobId: id,
         firstName: "",
         lastName: "",
         mobile: "",
@@ -18,6 +24,7 @@ export const ReportAJob = () => {
         reason: "",
         explanation: ""
     };
+    console.log(initialValues)
 
     const [formValues, setFormValues] = useState(initialValues);
     const [errors, setErrors] = useState({});
@@ -77,7 +84,7 @@ export const ReportAJob = () => {
         e.preventDefault();
         if (validate()) {
             const newReport = {
-                id: `#ES${Date.now().toString().slice(-6)}`,
+                RepId: `#ES${Date.now().toString().slice(-6)}`,
                 firstName: formValues.firstName,
                 lastName: formValues.lastName,
                 mobile: formValues.mobile,
@@ -87,9 +94,9 @@ export const ReportAJob = () => {
                 status: "Pending",
                 priority: "High",
                 date: new Date().toLocaleDateString('en-GB'),
-                jobId:jobId
+                jobId: formValues.jobId
             };
- 
+            console.log(newReport)
             setReports((prevReports) => [...prevReports, newReport]);
  
             alert("Report submitted successfully!");
