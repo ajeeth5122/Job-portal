@@ -50,6 +50,8 @@ import { AdminHeader } from './AdminHeader'
 import { HighlightedJobs } from './HighligtedJobs'
 import { PublishedPlans } from './PublishedPlans'
 import { SupportHub } from './SupportHub'
+import { AdminCreateBlog } from './AdminCreateBlog'
+import { AdminBlogPost } from './AdminBlogpost'
 
 export const AdminDashboard = () => {
     const { jobs, Alluser, currentEmployer } = useJobs();
@@ -190,6 +192,13 @@ export const AdminDashboard = () => {
                                 {activetab === "settings" ? <img src={SettingsAct} width={15} height={15} alt="dashboard" />
                                     : <img src={Settings} width={15} height={15} alt="settings" />}
                                 <div className='Enav-item'>Settings</div>
+                            </div>
+                        </div>
+                        <div onClick={() => {setActiveTab('Blog Post'); setShowHighlightedJobs(false)}} className={activetab === "Blog Post" ? "Admin-Active" : 'Admin-Navbar'}>
+                            <div className='Admin-Navbox'>
+                                {activetab === "Blog Post" ? <img src={SettingsAct} width={15} height={15} alt="dashboard" />
+                                    : <img src={Settings} width={15} height={15} alt="settings" />}
+                                <div className='Enav-item'>Blog Post</div>
                             </div>
                         </div>
                     </div>
@@ -500,6 +509,7 @@ export const AdminDashboard = () => {
                     {activetab === 'Membership' && (<PublishedPlans />)}
                     {activetab === 'SupportHub' && (<SupportHub />)}
                     {activetab === 'settings' && (<AdminSettings />)}
+                    {activetab === 'Blog Post' && (<AdminBlogPost />)}
                     {showHighlightedJobs && (<HighlightedJobs setShowHighlightedJobs={setShowHighlightedJobs} />)}
                 </div>
             </div>

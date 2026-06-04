@@ -2,7 +2,7 @@ import React from 'react';
 import './Blogpage.css';
 import { useNavigate } from 'react-router-dom';
 import { Footer } from '../Components-LandingPage/Footer';
-import { Header } from '../Components-LandingPage/Header';
+import { Header } from '../Components-LandingPage/Header'; // Inga normal Header import iruku, user choice mardhi use pannikalam
 import blogheadimg from "../assets/Blog_Images/bloghead.png";
 import blogimg from "../assets/Blog_Images/blog1.png";
 import bloggimg from "../assets/Blog_Images/blog2.png";
@@ -16,89 +16,73 @@ import blogimgg from "../assets/Blog_Images/blog9.png";
 import bloggimgg from "../assets/Blog_Images/blog10.png";
 import blooggimgg from "../assets/Blog_Images/blog11.png";
 import { FHeader } from './FHeader';
+import { useJobs } from '../JobContext';
+
+export const BlogCard = ({ item }) => {
+  const navigate = useNavigate()
+  const ReduceDesc = (text, wordLimit) => {
+    if (!text) return '';
+    const words = text.split(/\s+/); 
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+    }
+    return text;
+  };
+    return (
+      <div className='content'>
+        <img src={item.Thumbnail} alt={item.title} width="300" />
+        <p className='blog-date'>{item.date}</p>
+        <h3 className={item.isCategory ? 'card-title' : ''}>{item.title}</h3>
+        
+        {!item.isCategory && (
+          <p>{ReduceDesc(item.desc,10)}</p>
+          
+        )}
+       <p style={{fontSize:"20px",cursor:"pointer",color:"#5295f8",fontWeight:"600"}} onClick={() => navigate(`/Job-portal/jobseeker/Blogs/BlogDatas/${item.title}`, { state: { blogData: item } })}>
+  Read more
+</p>
+      </div>
+    );
+  };
 
 export const Blogpage = () => {
   const navigate = useNavigate();
-
-  // 1. Data arrays to avoid repetition
-  const featuredBlogs = [
-    { img: blogimg, title: "Lorem ipsum dolor sit amet...", desc: "Lorem ipsum dolor sit amet..." },
-    { img: bloggimg, title: "Lorem ipsum, dolor sit amet...", desc: "Lorem ipsum dolor sit amet..." },
-    { img: blggimg, title: "Lorem ipsum, dolor sit amet...", desc: "Lorem ipsum dolor sit amet..." },
-  ];
-
-  const categories = [
-    { img: blogcimg, title: "career" },
-    { img: bloggcimg, title: "Onboarding" },
-    { img: blogccimg, title: "tasks" },
-    { img: bloggccimg, title: "Worktype" },
-    { img: blggcimg, title: "Meetings" },
-    { img: blogimgg, title: "Environment" },
-  ];
-
-  const techBlogs = [
-    { img: bloggimgg, title: "Lorem ipsum dolor sit amet..." },
-    { img: blooggimgg, title: "Lorem ipsum, dolor sit amet..." },
-    { img: blggimg, title: "Lorem ipsum, dolor sit amet..." },
-    { img: blogimg, title: "Lorem ipsum dolor sit amet..." },
-    { img: bloggimg, title: "Lorem ipsum dolor sit amet..." },
-    { img: blggimg, title: "Lorem ipsum dolor sit amet..." },
-  ];
-
-  // 2. Reusable Card Component
-  const BlogCard = ({ img, title, desc, isCategory = false }) => (
-    <div className='content'>
-      <img src={img} alt="blog" width="300" />
-      <h3 className={isCategory ? 'card-title' : ''}>{title}</h3>
-      <p>{desc || "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, quibusdam."}</p>
-      <button>Read more</button>
-      <p className="extra-content">Lorem ipsum dolor sit amet...</p>
-      <p className="extra-content">Lorem ipsum dolor sit amet...</p>
-    </div>
-  );
+  const {publishedBlogs}=useJobs()
+  
 
   return (
     <>
       <FHeader />
 
       <div style={{ marginTop: "150px" }} className='blogpage'>
-        <img src={blogheadimg} alt="blogpage" width="1450px" style={{ padding: "25px" }} />
+        <img src={blogheadimg} alt="blogpage header" width="1450px" style={{ padding: "25px" }} />
       </div>
 
-      {/* Featured Section */}
-      <div className='cat-con'>
-        <div className='container2'>
-          {featuredBlogs.map((blog, index) => (
-            <BlogCard key={index} {...blog} />
-          ))}
-        </div>
-      </div>
+      {Object.entries(publishedBlogs).map(([sectionTitle, sectionItems]) => (
+        <div className='cat-con' key={sectionTitle}>   
+          <div className='categories2'>
+            <h1>{sectionTitle}</h1>           
+            {sectionItems.length > 3 && (
+  <button onClick={() => {
+      navigate(`/Job-portal/jobseeker/Blogs/view-all/${sectionTitle}`, { 
+        state: { pageTitle: sectionTitle, pageData: sectionItems } 
+      });
+    }} 
+    className='view-all'
+  >
+   View all
+  </button>
+)}
+          </div>
 
-      {/* Categories Section */}
-      <div className='cat-con'>
-        <div className='categories2'>
-          <h1>Categories</h1>
-          <button onClick={() => navigate('/Job-portal/jobseeker/Blogs/Category')} className='view-all'>view all</button>
+          <div className='container2'>
+            {sectionItems.slice(0, 3).map((item) => (
+              <BlogCard key={item.id} item={item} />
+            ))}
+          </div>
+          <hr style={{ border: "0.5px solid #eee", margin: "20px 25px" }} />
         </div>
-        <div className='container2'>
-          {categories.map((cat, index) => (
-            <BlogCard key={index} {...cat} isCategory={true} />
-          ))}
-        </div>
-      </div>
-
-      {/* Technology Blogs Section */}
-      <div className='cat-con'>
-        <div className='categories2'>
-          <h1>Technology Blogs</h1>
-          <button onClick={() => navigate('/Job-portal/jobseeker/Blogs/Technology')} className='view-all'>view all</button>
-        </div>
-        <div className='container2'>
-          {techBlogs.map((blog, index) => (
-            <BlogCard key={index} {...blog} />
-          ))}
-        </div>
-      </div>
+      ))}
 
       <Footer />
     </>

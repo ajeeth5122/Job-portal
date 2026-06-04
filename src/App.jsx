@@ -59,6 +59,8 @@ import { OtpVerification } from './Components-JobseekerSignup/OtpVerification'
 import { ReportAJob } from './Components-Jobseeker/ReportAJob'
 import { AdminLogin } from './Components-Admin/AdminLogin'
 import { AdminDashboard } from './Components-Admin/AdminDashboard'
+import { ViewAllBlogs } from './Components-LandingPage/ViewallBlogs'
+import { BlogDatas } from './Components-LandingPage/BlogDatas'
 
 const router = createBrowserRouter([{
   path: '/Job-portal',
@@ -303,7 +305,16 @@ const router = createBrowserRouter([{
 {
   path: '/Job-portal/Admin/Dashboard',
   element: <AdminDashboard />,
-}
+},
+{
+    path: '/Job-portal/jobseeker/Blogs/BlogDatas/:slug', 
+    element: <BlogDatas/>
+  },
+  { 
+    path: "/Job-portal/jobseeker/Blogs/view-all/:categorySlug",
+    element: <ViewAllBlogs />
+  }
+
 ])
 
 function App() {

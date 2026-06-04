@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 import { Joblist } from './JobList';
+import { blogs } from './Blogs';
 
 const JobContext = createContext();
 
@@ -80,6 +81,9 @@ export const JobProvider = ({ children }) => {
         }
     ];
     const [allPlans, setAllPlans] = useState(publishedPlans);
+    
+
+    const [publishedBlogs, setPublishedBlogs] = useState(blogs);
 
     const [Alluser, setAlluser] = useState([
         {
@@ -371,7 +375,6 @@ export const JobProvider = ({ children }) => {
     const [raisedTickets, setRaisedTickets] = useState(Tickets);
     const [reports, setReports] = useState(Reports);
     const [enquiries, setEnquiries] = useState(Enquiries)
-
     const [chats, setChats] = useState([
         // Employer
         { id: currentEmployer.id, name: currentEmployer.hrName, role: "employer", messages: currentEmployer.messages },
@@ -394,23 +397,22 @@ export const JobProvider = ({ children }) => {
             return;
         }
 
-        const currentPlan = allPlans.find(p => p.planLevel === planLevel);
+        const currentPlan = publishedPlans.find(p => p.planLevel === planLevel);
 
-        let maxJobs = 0;
-        if (currentPlan) {
-            const jobFeature = currentPlan.features.find(f => f.text.toLowerCase().includes('jobs posting'));
+    let maxJobs = 0;
+    if (currentPlan) {
+        const jobFeature = currentPlan.features.find(f => f.text.toLowerCase().includes('jobs posting'));
+        if (jobFeature && jobFeature.value) {
+            const limitVal = String(jobFeature.value).toLowerCase().trim();
 
-            if (jobFeature && jobFeature.isInclude) {
-                const limitVal = String(jobFeature.value).toLowerCase().trim();
-
-                if (limitVal === 'unlimited' || limitVal === 'infinity') {
-                    maxJobs = Infinity;
-                } else {
-                    maxJobs = parseInt(limitVal, 10);
-                    if (isNaN(maxJobs)) maxJobs = 0; // Empty ya iruntha 0 aakidurom
-                }
+            if (limitVal === 'unlimited' || limitVal === 'infinity') {
+                maxJobs = Infinity;
+            } else {
+                maxJobs = parseInt(limitVal, 10);
+                if (isNaN(maxJobs)) maxJobs = 0; 
             }
         }
+    }
 
         const currentPostedCount = currentEmployer.jobPosted.length;
 
@@ -943,7 +945,7 @@ export const JobProvider = ({ children }) => {
             addChatToSidebar, currentUser, withdrawJobFromUser, updateApplicantStatus, isJobApplied, currentEmployer,
             getJobStats, savedJobs, appliedJobs, currentUserId, withdrawApplication, removeRejectedJob, addEmployerNotification, setCurrentEmployer,
             toggleHighlight, getFeaturesForPlan, publishedPlans, allPlans, setAllPlans, raisedTickets, setRaisedTickets, reports, setReports,
-            enquiries, setEnquiries
+            enquiries, setEnquiries,publishedBlogs, setPublishedBlogs
         }}>
             {children}
         </JobContext.Provider>

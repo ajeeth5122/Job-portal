@@ -8,7 +8,6 @@ import { useJobs } from '../JobContext';
 export const ReportAJob = () => {
    const { jobs, setReports } = useJobs();
     const navigate = useNavigate();
-    const { setReports } = useJobs();
     const { id } = useParams();
     const initialValues = {
         jobId: id,
