@@ -199,22 +199,28 @@
 }
 
 .admin-Blog-li-status {
-    padding: 5px 12px;
+    display: inline-block; 
+    width: 90px;           
+    text-align: center;    
+    padding: 5px 0;
     border-radius: 4px;
     font-size: 12px;
     font-weight: 500;
+    background-color: #16A34A;
 }
 
 .admin-Blog-li-published {
     background: #DCFCE7;
     color: #16A34A;
     border: 1px solid #16A34A;
+
 }
 
 .admin-Blog-li-draft {
     background: #FFF7ED;
     color: #F59E0B;
     border: 1px solid #F59E0B;
+    
 }
 
 .admin-Blog-li-menu-dot {

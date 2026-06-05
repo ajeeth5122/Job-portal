@@ -18,7 +18,7 @@ export const blogs = {
       title: "Understanding JavaScript Closures",
       date: "May 31, 2026",
       heading: "10 Tips for Writing Better Blog Posts",
-      Status: "Published",
+      Status: "Draft",
       Thumbnail: blogimg,
       desc: "A beginner-friendly explanation of closures in JavaScript with practical examples.",
       points: [
