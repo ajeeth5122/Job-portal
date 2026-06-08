@@ -4,6 +4,7 @@ import { Footer } from "../Components-LandingPage/Footer";
 import "./ProfileCreationHelp.css";
 import ProfileHelp from '../assets/profile-help.png'
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const ProfileCreationHelp = () => {
 
@@ -86,7 +87,7 @@ export const ProfileCreationHelp = () => {
 
   return (
       <>
-      <Header />
+      <FHeader />
       <div className="profilehelp-page">
       <div className="profilehelp-container">
         <h1 className="profilehelp-title">

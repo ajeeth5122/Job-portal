@@ -3,6 +3,7 @@ import "./JobApplyIssuesHelp.css"; // Consolidated CSS file
 import { Footer } from "../Components-LandingPage/Footer";
 import JobApplyImg from "../assets/jobapplyissues.png";
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const JobApplyIssuesHelp = () => {
   const applyHelpData = {
@@ -49,7 +50,7 @@ export const JobApplyIssuesHelp = () => {
 
   return (
       <>
-      <Header />
+      <FHeader />
       <div className="Jobseekerhelp-page">
       <div className="Jobseekerhelp-container">
         <h1 className="Jobseekerhelp-title">{applyHelpData.title}</h1>

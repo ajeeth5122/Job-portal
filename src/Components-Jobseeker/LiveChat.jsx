@@ -6,6 +6,7 @@ import SilverStar from "../assets/SilverStar.png"
 import GoldStar from "../assets/GoldStar.png"
 import SendIcon from "../assets/SendIcon.png"
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 
 const TypingDots = () => {
@@ -93,7 +94,7 @@ export const LiveChat = () => {
 
   return (
     <>
-      <Header />
+      <FHeader />
 
       <div className="Livechat-chat-wrapper">
         <div className="Livechat-chat-box">

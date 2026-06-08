@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import './AdminCreateBlog.css';
 import { AdminHeader } from './AdminHeader';
 import { useJobs } from '../JobContext';
-
+ 
 const initialCategories = [
   { id: 'featured', label: 'Featured Blogs' },
   { id: 'careers', label: 'Careers' },
   { id: 'tech', label: 'Technology Blogs' }
 ];
-
+ 
 export const AdminCreateBlog = ({ setmode }) => {
   const { publishedBlogs, setPublishedBlogs } = useJobs();
   const [categories, setCategories] = useState(initialCategories);
-  
+ 
   const [isAdding, setIsAdding] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+ 
   const [formData, setFormData] = useState({
     blogTitle: '',
     blogDescription: '',
@@ -26,9 +26,9 @@ export const AdminCreateBlog = ({ setmode }) => {
     modalHeading: '',
     modalDescription: ''
   });
-
+ 
   const [pointsList, setPointsList] = useState([]);
-
+ 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
@@ -36,9 +36,9 @@ export const AdminCreateBlog = ({ setmode }) => {
       [id]: value
     }));
   };
-
+ 
   const openModal = () => setIsModalOpen(true);
-  
+ 
   const closeModal = () => {
     setIsModalOpen(false);
     setFormData((prev) => ({
@@ -47,7 +47,7 @@ export const AdminCreateBlog = ({ setmode }) => {
       modalDescription: ''
     }));
   };
-
+ 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -58,42 +58,42 @@ export const AdminCreateBlog = ({ setmode }) => {
       }));
     }
   };
-
+ 
   const handleSavePoints = (e) => {
     e.preventDefault();
     const { modalHeading, modalDescription } = formData;
-
+ 
     if (modalHeading.trim() !== '' && modalDescription.trim() !== '') {
       const bulletPoints = modalDescription
         .split('\n')
         .filter(item => item.trim() !== '');
-
+ 
       const newPoint = {
         title: modalHeading.trim(),
         content: bulletPoints
       };
-
+ 
       setPointsList([...pointsList, newPoint]);
       closeModal();
     }
   };
-
+ 
   const handleDeletePoint = (indexToRemove) => {
     setPointsList(pointsList.filter((_, index) => index !== indexToRemove));
   };
-
+ 
   const handleAddNewCategory = () => {
     const formattedName = newCategoryName.trim();
     if (formattedName !== '') {
       const isDuplicate = categories.some(
         (cat) => cat.label.toLowerCase() === formattedName.toLowerCase()
       );
-
+ 
       if (isDuplicate) {
         alert("This category name already exists! Please choose a different name.");
         return;
       }
-
+ 
       setCategories([
         ...categories,
         { id: Date.now().toString(), label: formattedName }
@@ -102,10 +102,86 @@ export const AdminCreateBlog = ({ setmode }) => {
       setIsAdding(false);
     }
   };
+ 
+  // const handleSaveDraft = () => {
+  //   const { selectedCategory, blogTitle, blogDescription, previewUrl } = formData;
+  //   const selectedCategoryObj = categories.find(cat => cat.id === selectedCategory);
+ 
+  //   const fullCategoryName = selectedCategoryObj ? selectedCategoryObj.label : "Unknown";
+ 
+  //   const options = {month: "short", day: "2-digit", year: "numeric"};
+  //   const formattedDate = new Date().toLocaleDateString("en-US", options).replace(/,/g, "");
+ 
+  //   setPublishedBlogs((prevStorage) => {
+  //     const existingCategoryBlogs = prevStorage[fullCategoryName] || [];
+  //     const nextId = `cat-${existingCategoryBlogs.length + 1}`;
+ 
+  //     const draftBlog = {
+  //       id: nextId,
+  //       title: blogTitle.trim(),
+  //       Thumbnail: previewUrl,
+  //       date: formattedDate,
+  //       desc: blogDescription.trim(),
+  //       points: pointsList,
+  //       Status: "Draft"
+  //     };
+  //     return {
+  //       ...prevStorage,
+  //       [fullCategoryName]: [...existingCategoryBlogs,draftBlog]
+  //     };
+  //   });
+  //   alert("Draft saved successfully!");
+  // };
+ 
 
-  const handlePublishPost = () => {
+  const handleSaveDraft = () => {
     const { selectedCategory, blogTitle, blogDescription, previewUrl } = formData;
 
+    const hasCategory = selectedCategory !== '';
+    const hasTitle = blogTitle.trim() !== '';
+    const hasDesc = blogDescription.trim() !== '';
+    const hasThumbnail = previewUrl !== '';
+    const hasPoints = pointsList.length > 0;
+
+    const isAnyFieldFilled = hasCategory || hasTitle || hasDesc || hasThumbnail || hasPoints;
+
+    if (!isAnyFieldFilled) {
+      alert("No content filled to save as a draft!.");
+      setmode('list'); 
+      return;
+    }
+
+    const selectedCategoryObj = categories.find(cat => cat.id === selectedCategory);
+    const fullCategoryName = selectedCategoryObj ? selectedCategoryObj.label : "Unknown";
+
+    const options = { month: "short", day: "2-digit", year: "numeric" };
+    const formattedDate = new Date().toLocaleDateString("en-US", options).replace(/,/g, "");
+
+    setPublishedBlogs((prevStorage) => {
+      const existingCategoryBlogs = prevStorage[fullCategoryName] || [];
+      const nextId = `cat-${existingCategoryBlogs.length + 1}`;
+
+      const draftBlog = {
+        id: nextId,
+        title: blogTitle.trim(),
+        Thumbnail: previewUrl,
+        date: formattedDate,
+        desc: blogDescription.trim(),
+        points: pointsList,
+        Status: "Draft"
+      };
+      return {
+        ...prevStorage,
+        [fullCategoryName]: [...existingCategoryBlogs, draftBlog]
+      };
+    });
+
+    alert("Draft saved successfully!");
+    setmode('list');
+  };
+  const handlePublishPost = () => {
+    const { selectedCategory, blogTitle, blogDescription, previewUrl } = formData;
+ 
     if (!selectedCategory) {
       alert("Please select a category first before publishing!");
       return;
@@ -114,17 +190,17 @@ export const AdminCreateBlog = ({ setmode }) => {
       alert("Blog title and description are mandatory fields!");
       return;
     }
-
+ 
     const selectedCategoryObj = categories.find(cat => cat.id === selectedCategory);
     const fullCategoryName = selectedCategoryObj ? selectedCategoryObj.label : 'Unknown';
-
+ 
     const options = { month: 'short', day: '2-digit', year: 'numeric' };
     const formattedDate = new Date().toLocaleDateString('en-US', options).replace(/,/g, '');
-
+ 
     setPublishedBlogs((prevStorage) => {
       const existingCategoryBlogs = prevStorage[fullCategoryName] || [];
       const nextId = `cat-${existingCategoryBlogs.length + 1}`;
-
+ 
       const newBlogData = {
         id: nextId,
         title: blogTitle.trim(),
@@ -134,7 +210,7 @@ export const AdminCreateBlog = ({ setmode }) => {
         points: pointsList,
         Status: "Published"
       };
-
+ 
       return {
         ...prevStorage,
         [fullCategoryName]: [...existingCategoryBlogs, newBlogData]
@@ -150,23 +226,25 @@ export const AdminCreateBlog = ({ setmode }) => {
       modalDescription: ''
     });
     setPointsList([]);
-
+ 
     alert("Post published successfully!");
   };
-
+ 
   return (
     <>
       <div className="Admin-Blog-Cr-page-title-div">
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* <button type="button" onClick={() => { setmode('list') }} className="Admin-Blog-back-btn">Back to List</button> */}
+        <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
           <h2 style={{ margin: "0" }} >Create New Blog</h2>
+          <button type="button" onClick={() => { setmode('list') }} className="Admin-Blog-back-btn">Back to List</button>
         </div>
         <p>Add a new blog post. Fill in the details below and publish your post.</p>
       </div>
-
+ 
       <div className="Admin-Blog-Cr-content-grid">
         <div className="Admin-Blog-Cr-form-column">
           <div className="Admin-Blog-Cr-card-panel">
-
+ 
             <div className="Admin-Blog-Cr-form-group">
               <label htmlFor="blogTitle">Blog Title<span className="Admin-Blog-Cr-required">*</span></label>
               <input
@@ -177,7 +255,7 @@ export const AdminCreateBlog = ({ setmode }) => {
                 onChange={handleInputChange}
               />
             </div>
-
+ 
             <div className="Admin-Blog-Cr-form-group">
               <label htmlFor="blogDescription">Description<span className="Admin-Blog-Cr-required">*</span></label>
               <div className="Admin-Blog-Cr-text-editor-container">
@@ -194,13 +272,13 @@ export const AdminCreateBlog = ({ setmode }) => {
                 </div>
               </div>
             </div>
-
+ 
             {/* Points Section */}
             <div className="Admin-Blog-Cr-form-group Admin-Blog-Cr-points-group" style={{ fontFamily: 'Arial, sans-serif' }}>
               <div style={{ fontWeight: 'bold', display: 'block', marginBottom: '8px', fontSize: '14px', color: '#333' }}>
                 Points<span className="Admin-Blog-Cr-required" style={{ color: 'red', marginLeft: '4px' }}>*</span>
               </div>
-
+ 
               <button
                 type="button"
                 onClick={openModal}
@@ -208,7 +286,7 @@ export const AdminCreateBlog = ({ setmode }) => {
               >
                 + Add Heading & Description
               </button>
-
+ 
               {pointsList.length > 0 && (
                 <div className="Admin-Blog-Cr-points-display" style={{ marginTop: '20px', border: '1px solid #eee', padding: '15px', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
                   {pointsList.map((item, index) => (
@@ -220,11 +298,11 @@ export const AdminCreateBlog = ({ setmode }) => {
                       >
                         Delete Section
                       </button>
-
+ 
                       <h3 style={{ fontSize: '18px', fontWeight: 'bold', color: '#000', margin: '0 0 10px 0' }}>
                         {index + 1}. {item.title}
                       </h3>
-
+ 
                       <ul style={{ paddingLeft: '20px', margin: '0', listStyleType: 'disc' }}>
                         {item.content.map((subPoint, subIndex) => (
                           <li key={subIndex} style={{ color: '#555', marginBottom: '6px', fontSize: '14px', lineHeight: '1.5' }}>
@@ -236,16 +314,16 @@ export const AdminCreateBlog = ({ setmode }) => {
                   ))}
                 </div>
               )}
-
+ 
               <p className="Admin-Blog-Cr-field-instruction" style={{ color: '#666', fontSize: '13px', marginTop: '10px' }}>
                 Points are hand-crafted key highlights of your content.
               </p>
-
+ 
               {isModalOpen && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
                   <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '8px', width: '500px', maxWidth: '90%', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                     <h2 style={{ margin: '0 0 20px 0', fontSize: '20px' }}>Add New Section</h2>
-
+ 
                     <form onSubmit={handleSavePoints}>
                       <div style={{ marginBottom: '15px' }}>
                         <label htmlFor="modalHeading" style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Heading</label>
@@ -259,7 +337,7 @@ export const AdminCreateBlog = ({ setmode }) => {
                           style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px' }}
                         />
                       </div>
-
+ 
                       <div style={{ marginBottom: '20px' }}>
                         <label htmlFor="modalDescription" style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Description (Press Enter to automatically insert a bullet point)</label>
                         <textarea
@@ -272,7 +350,7 @@ export const AdminCreateBlog = ({ setmode }) => {
                           style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', fontFamily: 'inherit' }}
                         />
                       </div>
-
+ 
                       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                         <button
                           type="button"
@@ -293,11 +371,11 @@ export const AdminCreateBlog = ({ setmode }) => {
                 </div>
               )}
             </div>
-
+ 
             {/* Form Actions Row */}
             <div className="Admin-Blog-Cr-form-actions-row">
-              <button type="button" onClick={() => { setmode('list') }} className="Admin-Blog-Cr-btn Admin-Blog-Cr-btn-cancel">Cancel</button>
-              <button type="button" className="Admin-Blog-Cr-btn Admin-Blog-Cr-btn-secondary-save">Save Draft</button>
+              {/* <button type="button" onClick={() => { setmode('list') }} className="Admin-Blog-Cr-btn Admin-Blog-Cr-btn-cancel">Cancel</button> */}
+              <button type="button" className="Admin-Blog-Cr-btn Admin-Blog-Cr-btn-secondary-save" onClick={handleSaveDraft} >Save Draft</button>
               <button
                 type="button"
                 className="Admin-Blog-Cr-btn Admin-Blog-Cr-btn-publish"
@@ -306,15 +384,15 @@ export const AdminCreateBlog = ({ setmode }) => {
                 Publish Post
               </button>
             </div>
-
+ 
           </div>
         </div>
-
+ 
         <div className="Admin-Blog-Cr-sidebar-column">
           <div className="Admin-Blog-Cr-card-panel Admin-Blog-Cr-widget-card">
             <h3>Categories</h3>
             <hr className="Admin-Blog-Cr-divider" />
-
+ 
             <div className="Admin-Blog-Cr-categories-list">
               {categories.map((category) => (
                 <label className="Admin-Blog-Cr-checkbox-item" key={category.id}>
@@ -328,7 +406,7 @@ export const AdminCreateBlog = ({ setmode }) => {
                 </label>
               ))}
             </div>
-
+ 
             {isAdding ? (
               <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
                 <input
@@ -364,11 +442,11 @@ export const AdminCreateBlog = ({ setmode }) => {
               </button>
             )}
           </div>
-
+ 
           <div className="Admin-Blog-Cr-card-panel Admin-Blog-Cr-widget-card">
             <h3>Thumbnail Image</h3>
             <hr className="Admin-Blog-Cr-divider" />
-
+ 
             <input
               type="file"
               id='thumbnailUpload'
@@ -376,7 +454,7 @@ export const AdminCreateBlog = ({ setmode }) => {
               onChange={handleImageChange}
               style={{ display: 'none' }}
             />
-
+ 
             <label
               htmlFor='thumbnailUpload'
               className="Admin-Blog-Cr-upload-dropzone"
@@ -405,9 +483,10 @@ export const AdminCreateBlog = ({ setmode }) => {
               )}
             </label>
           </div>
-
+ 
         </div>
       </div>
     </>
   );
 };
+ 

@@ -4,6 +4,7 @@ import { JHeader } from "./JHeader";
 import { Footer } from "../Components-LandingPage/Footer";
 import InterviewImg from "../assets/interviewschedule.png";
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const InterviewSchedulingHelp = () => {
   const interviewData = {
@@ -66,7 +67,7 @@ export const InterviewSchedulingHelp = () => {
   return (
     <>
     
-      <Header />
+      <FHeader />
       <div className="Jobseekerhelp-page">
       <div className="Jobseekerhelp-container">
         <h1 className="Jobseekerhelp-title">{interviewData.title}</h1>

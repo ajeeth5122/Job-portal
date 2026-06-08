@@ -6,6 +6,7 @@ import { Footer } from '../Components-LandingPage/Footer';
 import { JHeader } from './JHeader';
 import { Header } from '../Components-LandingPage/Header';
 import { useJobs } from '../JobContext';
+import { FHeader } from './FHeader';
 
 
 
@@ -70,7 +71,7 @@ export const RaiseTicket = () => {
     if (step === 'success') {
         return (
             <div>
-                <JHeader />
+                <FHeader />
                 <div className="Raiseticket-status-container">
                     {step === 'loading' ? (
                         <div className="Raiseticket-loader"></div>
@@ -90,7 +91,7 @@ export const RaiseTicket = () => {
 
     return (
         <>
-            <Header />
+            <FHeader />
             <div className="Raiseticket-main-wrapper">
 
                 <div className="Raiseticket-page">

@@ -368,6 +368,20 @@
   margin: 0;
 }
 
+.Admin-Blog-back-btn {
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  margin-top: 18px;
+  background-color: #2563eb;
+  border: 1px solid transparent;
+  color: white;
+}
+
 /* Small Responsive Fix */
 @media (max-width: 992px) {
   .Admin-Blog-Cr-content-grid {

@@ -4,6 +4,7 @@ import { Footer } from "../Components-LandingPage/Footer";
 import "./TechnicalIssues.css";
 import TechSupportImg from "../assets/fileuploadhelp.png";
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const FileUploadHelp = () => {
   const uploadIssueData = {
@@ -66,7 +67,7 @@ export const FileUploadHelp = () => {
 
   return (
       <>
-      <Header />
+      <FHeader />
        <div className="technicalhelp-page">
       <div className="technicalhelp-container">
         <h1 className="technicalhelp-title">{uploadIssueData.title}</h1>

@@ -6,7 +6,7 @@ import uploadIcon from '../assets/UploadIcon.png'
 import deleteIcon from '../assets/DeleteIcon.png'
 import resumeIcon from '../assets/resume_icon.png'
 import { JHeader } from './JHeader';
-import { Header } from '../Components-LandingPage/Header'
+import { FHeader } from './FHeader';
 import { useJobs } from '../JobContext'
 import { Navigate, useNavigate } from 'react-router-dom'
 
@@ -1345,7 +1345,7 @@ export const MyProfile = () => {
 
     return (
         <div>
-            <Header />
+            <FHeader/>
             <main>
                 <div className='profile-main-desc'>
                     <h1>My Profile</h1>

@@ -4,6 +4,7 @@ import { Footer } from "../Components-LandingPage/Footer";
 import "./TechnicalIssues.css";
 import LoginSupportImg from "../assets/loginissue.png";
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const LoginIssuesHelp = () => {
   const loginIssueData = {
@@ -66,7 +67,7 @@ export const LoginIssuesHelp = () => {
 
   return (
       <>
-      <Header />
+      <FHeader />
       <div className="technicalhelp-page">
       <div className="technicalhelp-container">
         <h1 className="technicalhelp-title">{loginIssueData.title}</h1>

@@ -4,6 +4,7 @@ import { Footer } from "../Components-LandingPage/Footer";
 import "./JobEmployerHelp.css";
 import CandidateSearchImg from "../assets/candidatesearch.png";
 import { Header } from "../Components-LandingPage/Header";
+import { FHeader } from "./FHeader";
 
 export const CandidateSearchHelp = () => {
   const candidateData = {
@@ -39,7 +40,7 @@ export const CandidateSearchHelp = () => {
 
   return (
       <>
-      <Header />
+      <FHeader />
       <div className="jobemployerhelp-page">
       <div className="jobemployerhelp-container">
         <h1 className="jobemployerhelp-title">{candidateData.title}</h1>
