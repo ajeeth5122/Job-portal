@@ -391,7 +391,7 @@
     text-align: center;
 } */
 
-.status-modal-overlay {
+/* .status-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -411,7 +411,7 @@
     width: 260px;
     text-align: center;
     
-}
+} */
  
 .status-modal-options {
     display: flex;

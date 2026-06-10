@@ -1,0 +1,96 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.6); /* Slightly darker modern backdrop */
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center;     /* Vertically center */
+  z-index: 1000;
+  backdrop-filter: blur(4px); 
+}
+
+/* Center-la irukura Modal Box */
+.modal-container {
+  background-color: #ffffff;
+  padding: 32px; 
+  border-radius: 12px;
+  max-width: 440px;
+  width: 90%; /* Mobile responsive */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1); /* Premium feel animation */
+}
+
+/* Titles and Text */
+.modal-container h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #1e293b; /* Dark slate text */
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.modal-container p {
+  color: #64748b; /* Subtle grey text */
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Buttons Layer */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end; /* Right side alignment */
+  gap: 12px;
+}
+
+/* Common Button Styles */
+.modal-actions button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease; /* Smooth hover transition */
+}
+
+/* Cancel Button */
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+/* Upgrade Button */
+.btn-primary {
+  background-color: #2563eb; /* Clean Blue */
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px); 
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Smooth pop-up animation */
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

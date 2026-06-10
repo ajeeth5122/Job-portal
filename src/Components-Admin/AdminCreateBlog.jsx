@@ -3,19 +3,30 @@ import './AdminCreateBlog.css';
 import { AdminHeader } from './AdminHeader';
 import { useJobs } from '../JobContext';
  
-const initialCategories = [
-  { id: 'featured', label: 'Featured Blogs' },
-  { id: 'careers', label: 'Careers' },
-  { id: 'tech', label: 'Technology Blogs' }
-];
+// const initialCategories = [
+//   { id: 'featured', label: 'Featured Blogs' },
+//   { id: 'careers', label: 'Careers' },
+//   { id: 'tech', label: 'Technology Blogs' }
+// ];
+
+
  
 export const AdminCreateBlog = ({ setmode }) => {
+
   const { publishedBlogs, setPublishedBlogs } = useJobs();
+
+  const initialCategories = Object.keys(publishedBlogs).map((catName) => ({
+  id: catName,
+  label: catName
+  }));
+  
   const [categories, setCategories] = useState(initialCategories);
  
   const [isAdding, setIsAdding] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
  
   const [formData, setFormData] = useState({
     blogTitle: '',

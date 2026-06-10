@@ -185,11 +185,11 @@ const handleDeleteTicket = () => {
         </div>
 
         {isModalOpen && (
-        <div className="status-modal-overlay">
-            <div className="status-modal-content">
+        <div className="RepAJob-status-modal-overlay">
+                        <div className="RepAJob-status-modal-content">
                 <h3>Select Status</h3>
                
-                <div className="status-modal-options">
+                <div className="RepAJob-status-modal-options">
                     <button onClick={() => handleStatusSelection("In Progress")}>In Progress</button>
                     <button onClick={() => handleStatusSelection("Hold")}>Hold</button>
                     <button onClick={() => handleStatusSelection("Resolved")}>Resolved</button>
