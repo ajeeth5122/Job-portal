@@ -78,6 +78,7 @@ export const ReportAJob = () => {
                 explanation: formValues.explanation,
                 status: "Pending",
                 priority: "High",
+                category:"Jobseeker",
                 date: new Date().toLocaleDateString('en-GB'),
                 jobId: id
             };

@@ -346,7 +346,7 @@ export const JobProvider = ({ children }) => {
     ];
 
     const Reports = [{
-        id: "#ES100112",
+        RepId: "#ES100112",
         firstName: "Ajeeth",
         lastName: "R",
         mobile: "9876543210",
@@ -356,10 +356,11 @@ export const JobProvider = ({ children }) => {
         status: "Pending",
         priority: "High",
         date: "18/05/2026",
-        JobId: "1"
+        jobId: "1",
+        category:"JobSeeker"
     },
     {
-        id: "#ES100223",
+        RepId: "#ES100223",
         firstName: "Ravi",
         lastName: "K",
         mobile: "9123456780",
@@ -369,7 +370,8 @@ export const JobProvider = ({ children }) => {
         status: "Resolved",
         priority: "Medium",
         date: "17/05/2026",
-        JobId: "45"
+        jobId: "45",
+        category:"JobSeeker"
     }]
 
     const [raisedTickets, setRaisedTickets] = useState(Tickets);

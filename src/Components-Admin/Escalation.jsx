@@ -23,7 +23,7 @@ export const Escalation = () => {
         setReports((prev) =>
             prev.map((item) => item.id === ticketId ? { ...item, status: value } : item)
         );
-        if (selectedReport && selectedReport.id === ticketId) {
+        if (selectedReport && selectedReport.RepId === ticketId) {
             setSelectedReport((prev) => ({ ...prev, status: value }));
         }
         setIsModalOpen(false);
@@ -79,7 +79,7 @@ export const Escalation = () => {
                             <img src={victor} alt="document" className="RepAJob-svg-icon" />
                         </div>
                         <div className="RepAJob-ticket-header">
-                            <h3>{selectedReport.reason || "Unable to submit the project status"}</h3>
+                            <h3>{selectedReport.reason}</h3>
                             <span className="RepAJob-ticket-id">{selectedReport.RepId}</span>
                             <p className="RepAJob-timestamp">Created on : {selectedReport.date}</p>
                         </div>
@@ -108,7 +108,7 @@ export const Escalation = () => {
                             <span style={{ paddingLeft: "15px" }} className="meta-label">JobId</span>
                             <span className="meta-separator">:</span>
                             <span className="meta-value-priority" data-priority={currentPriority.toLowerCase()}>
-                                {selectedReport.id}
+                                {selectedReport.jobId}
                             </span>
                         </div>
                     </div>
@@ -124,15 +124,15 @@ export const Escalation = () => {
                             </div>
                             <div className="RepAJob-grid-row">
                                 <span className="RepAJob-grid-label">Mobile number :</span>
-                                <input type='text' disabled value={selectedReport.mobile || '+91 9876543210'} />
+                                <input type='text' disabled value={selectedReport.mobile} />
                             </div>
                             <div className="RepAJob-grid-row">
                                 <span className="RepAJob-grid-label">Mail ID :</span>
-                                <input type='text' disabled value={selectedReport.email || 'jobportal@gmail.com'} />
+                                <input type='text' disabled value={selectedReport.email } />
                             </div>
                             <div className="RepAJob-grid-row">
                                 <span className="RepAJob-grid-label">User :</span>
-                                <input type='text' disabled value={selectedReport.category || 'Report'} />
+                                <input type='text' disabled value={selectedReport.category} />
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export const Escalation = () => {
 
                 <div className="RepAJob-section">
                     <h4>Report details</h4>
-                    <p>Job Id: {selectedReport.JobId}</p>
+                    {/* <p>Job Id: {selectedReport.jobId}</p> */}
                     <p className="RepAJob-description-text">
                         {selectedReport.explanation}
                     </p>
@@ -151,11 +151,11 @@ export const Escalation = () => {
                         <img src={pencil} alt="edit-icon" className="RepAJob-btn-icon-img" style={{ marginRight: '6px' }} />
                         Edit Status
                     </button>
-                    <button onClick={() => handleDeleteReport(selectedReport.id)} className="RepAJob-btn-action RepAJob-btn-delete">
+                    <button onClick={() => handleDeleteReport(selectedReport.RepId)} className="RepAJob-btn-action RepAJob-btn-delete">
                         <img src={deleteIcon} alt="delete-icon" className="RepAJob-btn-icon-img" style={{ marginRight: '6px' }} />
                         Delete
                     </button>
-                    <button style={{background:"#2b8bf9"}}  onClick={() => setShowJobOverviewId(selectedReport.JobId)} className="RepAJob-btn-action">
+                    <button style={{background:"#2b8bf9"}}  onClick={() => setShowJobOverviewId(selectedReport.jobId)} className="RepAJob-btn-action">
                         View this Job
                     </button>
                 </div>
@@ -210,10 +210,10 @@ export const Escalation = () => {
                             reports.map((item, index) => {
                                 const itemPriority = item.priority || 'Medium';
                                 return (
-                                    <tr key={item.id || index}>
-                                        <td>{item.id}</td>
+                                    <tr key={item.RepId}>
+                                        <td>{item.RepId}</td>
                                         <td>{item.reason || "Progress, project & status reports"}</td>
-                                        <td>{item.JobId}</td>
+                                        <td>{item.jobId}</td>
                                         <td>{item.firstName} {item.lastName}</td>
                                         <td>Report</td>
                                         <td>
